@@ -2,6 +2,7 @@ const { func } = require("joi");
 const mongoose = require("mongoose");
 const Review = require("./review");
 const Schema = mongoose.Schema;
+const mongoosePaginate = require("mongoose-paginate-v2");
 
 const ImageSchema = new Schema({
     url: String,
@@ -62,4 +63,6 @@ CampgroundSchema.post("findOneAndDelete", async function (doc) {
 });
 
 //exporting
+CampgroundSchema.plugin(mongoosePaginate);
+
 module.exports = mongoose.model("Campground", CampgroundSchema);

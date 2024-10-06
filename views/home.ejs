@@ -20,45 +20,21 @@
         <link rel="stylesheet" href="/stylesheets/home.css" />
     </head>
 
-    <body class="d-flex text-center text-white bg-dark">
-        <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-            <header class="mb-auto">
-                <div>
-                    <h3 class="float-md-left mb-0">YelpCamp</h3>
-                    <nav
-                        class="nav nav-masthead justify-content-center float-md-right"
-                    >
-                        <a class="nav-link active" aria-current="page" href="#"
-                            >Home</a
-                        >
-                        <a class="nav-link" href="/campgrounds">Campgrounds</a>
-                        <% if(!currentUser) { %>
-                        <a class="nav-link" href="/login">Login</a>
-                        <a class="nav-link" href="/register">Register</a>
-                        <% } else { %>
-                        <a class="nav-link" href="/logout">Logout</a>
-                        <% } %>
-                    </nav>
-                </div>
-            </header>
-            <main class="px-3">
-                <h1>YelpCamp</h1>
-                <p class="lead">
-                    Welcome to YelpCamp! <br />
-                    Jump right in and explore our many campgrounds. <br />
-                    Feel free to share some of your own and comment on others
-                </p>
-                <a
-                    href="/campgrounds"
-                    class="btn btn-large btn-secondary font-weight-bold text-black bg-white"
-                    >View Campgrounds</a
-                >
-            </main>
+    <body class="d-flex flex-column text-center text-white no-scroll">
+        <%- include('./partials/navbar') %>
 
-            <footer class="mt-auto text-white-50">
-                <p>&copy; 2023 YelpCamp</p>
-            </footer>
-        </div>
+        <main>
+            <video id="bg-video" autoplay loop muted>
+                <source
+                    src="https://res.cloudinary.com/drvf1bwps/video/upload/v1728225888/YelpCamp/homescreen_dgo2h6.webm"
+                    type="video/webm"
+                />
+                Your browser does not support the video tag.
+            </video>
+            <div class="bottom-left-content">
+                <h1>Discover Nature's Best Parks.</h1>
+            </div>
+        </main>
         <script
             src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
@@ -69,5 +45,26 @@
             integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
             crossorigin="anonymous"
         ></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const video = document.getElementById("bg-video");
+
+                if (video) {
+                    video.addEventListener("timeupdate", function () {
+                        const buffer = 0.44; // Adjust this value if needed
+                        if (this.currentTime > this.duration - buffer) {
+                            this.style.opacity = 0;
+                        } else {
+                            this.style.opacity = 1;
+                        }
+                    });
+
+                    video.addEventListener("ended", function () {
+                        this.currentTime = 0;
+                        this.play();
+                    });
+                }
+            });
+        </script>
     </body>
 </html>

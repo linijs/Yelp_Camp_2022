@@ -1,52 +1,111 @@
 <% layout('./layouts/boilerplate')%>
 
-<div id="cluster-map"></div>
-<div class="container">
-    <h1>All campgrounds</h1>
+<div class="headings">
+    <span class="text-muted">What we offer</span>
+    <h2 class="text-center">Best parks around Latvia, free to explore.</h2>
+    <p class="text-paragraph">
+        We produce high-performance, compact homes that let you escape the
+        everyday to a space that is good for you and good for the planet.
+    </p>
+</div>
 
-    <% for (let campground of campgrounds) { %>
-    <div class="card mb-3">
-        <div class="row">
-            <div class="col-md-4">
-                <%if(campground.images.length) {%>
+<div id="cluster-map"></div>
+<div id="map-error" class="alert alert-warning d-none" role="alert">
+    There was an issue loading the map. This might be due to an ad blocker or
+    security software.
+</div>
+
+<div class="container my-5">
+    <h1 class="text-center mb-4">Discover Campgrounds</h1>
+
+    <% if (campgrounds && campgrounds.docs && Array.isArray(campgrounds.docs)) {
+    %>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-4">
+        <% for (let campground of campgrounds.docs) { %>
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <% if(campground.images && campground.images.length) { %>
                 <img
-                    class="img-fluid"
-                    alt=""
                     src="<%=campground.images[0].url%>"
-                    crossorigin
+                    class="card-img-top"
+                    alt="<%=campground.title%>"
+                    style="height: 200px; object-fit: cover"
                 />
                 <% } else { %>
                 <img
-                    class="img-fluid"
                     src="https://res.cloudinary.com/drvf1bwps/image/upload/v1650983178/YelpCamp/yxcc5gwoe16lk7kapphq.jpg"
-                    crossorigin
-                    alt=""
+                    class="card-img-top"
+                    alt="Default campground image"
+                    style="height: 200px; object-fit: cover"
                 />
                 <% } %>
-            </div>
-            <div class="col-md-8">
                 <div class="card-body">
                     <h5 class="card-title"><%=campground.title%></h5>
-                    <p class="card-text"><%=campground.description%></p>
+                    <p class="card-text text-muted"><%=campground.location%></p>
                     <p class="card-text">
-                        <small class="text-muted"
-                            ><%=campground.location%></small
-                        >
-                        <a
-                            class="btn btn-dark"
-                            href="campgrounds/<%=campground._id%>"
-                            >View <%=campground.title%></a
-                        >
+                        <%=campground.description.substring(0, 100)%>...
                     </p>
+                </div>
+                <div class="card-footer bg-white">
+                    <a
+                        href="/campgrounds/<%=campground._id%>"
+                        class="btn btn-primary btn-sm"
+                        >View Campground</a
+                    >
                 </div>
             </div>
         </div>
+        <% } %>
     </div>
-    <%}%>
+
+    <!-- Pagination -->
+    <% if (campgrounds.totalPages > 1) { %>
+    <nav aria-label="Campground pagination">
+        <ul class="pagination justify-content-center">
+            <% if (campgrounds.hasPrevPage) { %>
+            <li class="page-item">
+                <a
+                    class="page-link"
+                    href="/campgrounds?page=<%=campgrounds.prevPage%>"
+                    aria-label="Previous"
+                >
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <% } %> <% for (let i = 1; i <= campgrounds.totalPages; i++) { %>
+            <li class="page-item <%= i === campgrounds.page ? 'active' : '' %>">
+                <a class="page-link" href="/campgrounds?page=<%=i%>"><%=i%></a>
+            </li>
+            <% } %> <% if (campgrounds.hasNextPage) { %>
+            <li class="page-item">
+                <a
+                    class="page-link"
+                    href="/campgrounds?page=<%=campgrounds.nextPage%>"
+                    aria-label="Next"
+                >
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            <% } %>
+        </ul>
+    </nav>
+    <% } %> <% } else { %>
+    <p>No campgrounds found or there was an error loading the campgrounds.</p>
+    <pre><%= JSON.stringify(campgrounds, null, 2) %></pre>
+    <% } %>
 </div>
+
 <script>
     const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
-    const campgrounds = {features:<%-JSON.stringify(campgrounds)%>}
+    const campgrounds = { features: <%- JSON.stringify(campgrounds && campgrounds.docs ? campgrounds.docs : []) %> };
+
+    // Add error handling for map loading
+    window.addEventListener('error', function(e) {
+        if (e.target.src && e.target.src.includes('mapbox')) {
+            document.getElementById('cluster-map').style.display = 'none';
+            document.getElementById('map-error').classList.remove('d-none');
+        }
+    }, true);
 </script>
 
 <script src="/javascripts/clusterMap.js"></script>

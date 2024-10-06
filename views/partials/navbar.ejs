@@ -1,32 +1,55 @@
-<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+<nav
+    class="navbar sticky-top navbar-expand-lg navbar-light bg-white p-3 mb-auto w-100"
+>
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">YelpCamp</a>
-        <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-        >
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <div class="navbar-nav">
-                <a class="nav-link" href="/campgrounds">Campgrounds</a>
-                <a class="nav-link" href="/campgrounds/new">New Campground</a>
-            </div>
-            <div class="navbar-nav ms-auto">
-                <% if(typeof currentUser !== 'undefined') { %> <%
-                if(!currentUser) { %>
-                <a class="nav-link" href="/login">Login</a>
-                <a class="nav-link active btn btn-success" href="/register"
-                    >Register</a
-                >
-                <% } else { %>
-                <!-- Add logged-in user options here -->
-                <% } %> <% } %>
+        <div class="d-flex justify-content-between align-items-center w-100">
+            <a href="/" class="navbar-brand text-decoration-none">
+                <h3 class="mb-0 font-weight-bold">Terrainly</h3>
+            </a>
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div
+                class="collapse navbar-collapse justify-content-end"
+                id="navbarNav"
+            >
+                <ul class="navbar-nav nav-masthead align-items-baseline">
+                    <li class="nav-item me-2">
+                        <a
+                            class="nav-link btn btn-dark text-white campgrounds-btn px-3 py-2"
+                            href="/campgrounds"
+                            >View Parks</a
+                        >
+                    </li>
+                    <% if(!currentUser) { %>
+                    <li class="nav-item me-2">
+                        <a class="nav-link text-dark p-2" href="/login"
+                            >Login</a
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <a
+                            class="nav-link btn btn-outline-dark register-btn p-2"
+                            href="/register"
+                            >Register</a
+                        >
+                    </li>
+                    <% } else { %>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark p-2" href="/logout"
+                            >Logout</a
+                        >
+                    </li>
+                    <% } %>
+                </ul>
             </div>
         </div>
     </div>
