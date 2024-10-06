@@ -74,6 +74,18 @@ nav {
     color: var(--secondary-color);
 }
 
+.btn-secondary {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--secondary-color);
+}
+
+.btn-secondary:hover {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+
 .register-btn {
     padding: var(--padding-button);
     border: 1px solid var(--priry-color);
@@ -159,6 +171,10 @@ main {
     display: flex;
     justify-content: space-between;
     margin-bottom: 4rem;
+}
+
+.secondary-heading h1 {
+    font-size: clamp(2rem, 5vw, 4rem);
 }
 
 /* Custom container */
@@ -253,4 +269,79 @@ main {
 
 html {
     scroll-behavior: smooth;
+}
+
+/* Styles for cards */
+.card {
+    transition: transform 0.2s;
+}
+.card:hover {
+    transform: translateY(-5px);
+}
+.card-img-container {
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+}
+.card-img-top {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.card-body {
+    display: flex;
+    flex-direction: column;
+}
+.card-text {
+    flex-grow: 1;
+}
+.badge {
+    font-size: 0.9rem;
+}
+
+/* Styles for pagination */
+.pagination .page-link {
+    color: black;
+}
+.pagination .page-item.active .page-link {
+    background-color: black;
+    border-color: black;
+    color: white;
+}
+.pagination .page-link:hover {
+    color: #333;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+}
+
+/* Styles for lazy loading images */
+.lazy-image-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.lazy-image {
+    transition: opacity 0.5s;
+    opacity: 0;
+}
+
+.lazy-image.loaded {
+    opacity: 1;
+}
+
+.lazy-image-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: blur(10px);
+    transform: scale(1.1);
+    transition: opacity 0.5s;
+}
+
+.section-spacing {
+    margin-bottom: 6rem;
 }
