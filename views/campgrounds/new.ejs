@@ -31,19 +31,8 @@
                         required
                     />
                     <div class="valid-feedback">Looks Good!</div>
-                </div> 
-                <!-- <input type="file" name="image" multiple> -->
-                <!-- <div class="mb-3">
-                    <label class="form-label" for="image">Image URL</label>
-                    <input
-                        class="form-control"
-                        type="text"
-                        name="campground[image]"
-                        id="image"
-                        required
-                    /> -->
-                    <div class="valid-feedback">Looks Good!</div>
                 </div>
+                <div class="valid-feedback">Looks Good!</div>
                 <div class="mb-3">
                     <label class="form-label" for="price"
                         >Campground Price</label
@@ -73,15 +62,21 @@
                 </div>
                 <div class="mb-3">
                     <label for="">Upload Images</label>
-                  <div class="input-group mb-3">
-                    <input type="file" class="form-control" name="image" id="image" multiple>
+                    <div class="input-group mb-3">
+                        <input
+                            type="file"
+                            class="form-control"
+                            name="image"
+                            id="image"
+                            multiple
+                        />
+                    </div>
                 </div>
-            </div>
                 <div class="mb-3">
                     <button class="btn btn-success">Add Campground</button>
                 </div>
             </form>
+            <a href="/campgrounds">Back to all campgrounds</a>
         </div>
-        <a href="/campgrounds">Back to all campgrounds</a>
     </div>
 </div>

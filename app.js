@@ -30,18 +30,11 @@ const dbUrl = process.env.DB_URL || "mongodb://127.0.0.1:27017/yelp-camp";
 mongoose
     .connect(dbUrl)
     .then(() => {
-        console.log("database connected");
+        console.log("Database connected");
     })
     .catch((e) => {
-        console.log("database error");
-        console.error.bind(console, "connection error:");
+        console.log("Database connection error:", e);
     });
-
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", () => {
-    console.log("Database connected");
-});
 
 const app = express();
 
@@ -49,20 +42,27 @@ app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+// Move session configuration here, before other middleware
+const sessionConfig = {
+    secret: process.env.SECRET || "thisshouldbeabettersecret!",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+    },
+};
+
+app.use(session(sessionConfig));
+
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
-app.use(
-    mongoSanitize({
-        replaceWith: "_",
-    })
-);
-
-const secret = process.env.SECRET || "thisshouldbeabetttersecret";
 
 const store = MongoStore.create({
     mongoUrl: dbUrl,
-    secret,
+    secret: process.env.SECRET || "thisshouldbeabettersecret!",
     touchAfter: 24 * 60 * 60,
 });
 
@@ -70,23 +70,14 @@ store.on("error", function (e) {
     console.log("SESSION STORE ERROR", e);
 });
 
-const sessionConfig = {
-    store,
-    name: "session",
-    secret,
-    secret: "thisshouldbeabettersecret!",
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        httpOnly: true,
-        // secure: true,
-        //so you don't stay logged in forever
-        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
-        maxAge: 1000 * 60 * 60 * 24 * 7,
-    },
-};
-app.use(session(sessionConfig));
 app.use(flash());
+
+app.use(
+    mongoSanitize({
+        replaceWith: "_",
+    })
+);
+
 app.use(helmet());
 
 const scriptSrcUrls = [
@@ -150,8 +141,8 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req, res, next) => {
     console.log(req.session);
     res.locals.currentUser = req.user;
-    res.locals.success = req.flash("success");
-    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success") || [];
+    res.locals.error = req.flash("error") || [];
     next();
 });
 
@@ -177,3 +168,5 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Serving at http://localhost:${port}`);
 });
+
+app.get("/public/images/favicon.ico", (req, res) => res.status(204));
