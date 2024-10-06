@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const cities = require("./cities");
 const { places, descriptors } = require("./seedHelpers");
 const Campground = require("../models/campground");
-const dbUrl = process.env.DB_URL || "mongodb://127.0.0.1:27017/yelp-camp";
+const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/yelp-camp";
 
 require("dotenv").config();
 const cloudinary = require("cloudinary").v2;
@@ -22,11 +22,16 @@ mongoose.set("strictQuery", false);
 mongoose
     .connect(dbUrl)
     .then(() => {
-        console.log("database connected");
+        console.log(`Connected to database: ${mongoose.connection.name}`);
+        return seedDB(); // Call seedDB() after successful connection
+    })
+    .then(() => {
+        console.log("Database seeded successfully");
+        mongoose.connection.close();
     })
     .catch((e) => {
-        console.log("database error");
-        console.error.bind(console, "connection error:");
+        console.log("Database error:", e.message);
+        console.error("Connection error:", e);
     });
 
 const sample = (array) => array[Math.floor(Math.random() * array.length)];
@@ -129,79 +134,90 @@ const generateRandomDescription = () => {
 };
 
 const seedDB = async () => {
-    await Campground.deleteMany({});
+    try {
+        await Campground.deleteMany({});
+        console.log("Deleted existing campgrounds");
 
-    const images = [];
-    await cloudinary.api.resources(options).then((res) => {
-        res.resources.forEach((asset) => {
+        const images = [];
+        const result = await cloudinary.api.resources(options);
+        result.resources.forEach((asset) => {
             if (asset.folder === "YelpCamp")
                 images.push({
                     url: asset.secure_url,
                     filename: asset.public_id,
                 });
         });
-        //    console.log('here', images)
-    });
+        console.log(`Fetched ${images.length} images from Cloudinary`);
 
-    for (let i = 0; i < 300; i++) {
-        const random1000 = Math.floor(Math.random() * 1000);
-        const price = Math.floor(Math.random() * 20) + 10;
+        const campgrounds = [];
+        for (let i = 0; i < 100; i++) {
+            const random60 = Math.floor(Math.random() * 60);
+            const price = Math.floor(Math.random() * 20) + 10;
 
-        const numberOfImages = Math.floor(Math.random() * 4) + 1;
-        const campgroundImages = [];
-        for (let i = 0; i <= numberOfImages; i++) {
-            const img =
-                images[
-                    Math.floor(Math.random() * images.length) % images.length
-                ];
-            if (campgroundImages.find((im) => im.url === img.url) !== undefined)
-                i--;
-            else campgroundImages.push(img);
+            const numberOfImages = Math.floor(Math.random() * 4) + 1;
+            const campgroundImages = [];
+            for (let i = 0; i <= numberOfImages; i++) {
+                const img =
+                    images[
+                        Math.floor(Math.random() * images.length) %
+                            images.length
+                    ];
+                if (
+                    campgroundImages.find((im) => im.url === img.url) !==
+                    undefined
+                )
+                    i--;
+                else campgroundImages.push(img);
+            }
+
+            const camp = new Campground({
+                //YOUR USER ID
+                author: "63c9535b1b3d3de42de66c3a",
+                location: `${cities[random60].city}, ${cities[random60].state}`,
+                title: `${sample(descriptors)} ${sample(places)}`,
+                description: generateRandomDescription(),
+                price,
+                geometry: {
+                    type: "Point",
+                    coordinates: [
+                        cities[random60].longitude,
+                        cities[random60].latitude,
+                    ],
+                },
+
+                // image: imageUrls[Math.floor(Math.random() * imageUrls.length)],
+                images: campgroundImages,
+
+                // images: [
+                //     {
+                //         url: "https://res.cloudinary.com/drvf1bwps/image/upload/v1651012681/YelpCamp/oavnfk5fdftyeu2zivoj.jpg",
+                //         filename: "YelpCamp/woavnfk5fdftyeu2zivoj",
+                //     },
+                //     {
+                //         url: "https://res.cloudinary.com/drvf1bwps/image/upload/v1651014353/YelpCamp/h2r9ygtjpnutbwxduqx2.jpg",
+                //         filename: "YelpCamp/h2r9ygtjpnutbwxduqx2",
+                //     },
+                //     {
+                //         url: "https://res.cloudinary.com/drvf1bwps/image/upload/v1650889915/YelpCamp/yqfep7h9fdcatpfx3iyz.jpg",
+                //         filename: "YelpCamp/yqfep7h9fdcatpfx3iyz",
+                //     },
+                //     {
+                //         url: "https://res.cloudinary.com/drvf1bwps/image/upload/v1650889916/YelpCamp/pmq175w1g845fzcmofex.jpg",
+                //         filename: "YelpCamp/pmq175w1g845fzcmofex",
+                //     },
+                // ],
+            });
+            campgrounds.push(camp);
         }
 
-        const camp = new Campground({
-            //YOUR USER ID
-            author: "63c9535b1b3d3de42de66c3a",
-            location: `${cities[random1000].city}, ${cities[random1000].state}`,
-            title: `${sample(descriptors)} ${sample(places)}`,
-            description: generateRandomDescription(),
-            price,
-            geometry: {
-                type: "Point",
-                coordinates: [
-                    cities[random1000].longitude,
-                    cities[random1000].latitude,
-                ],
-            },
-
-            // image: imageUrls[Math.floor(Math.random() * imageUrls.length)],
-            images: campgroundImages,
-
-            // images: [
-            //     {
-            //         url: "https://res.cloudinary.com/drvf1bwps/image/upload/v1651012681/YelpCamp/oavnfk5fdftyeu2zivoj.jpg",
-            //         filename: "YelpCamp/woavnfk5fdftyeu2zivoj",
-            //     },
-            //     {
-            //         url: "https://res.cloudinary.com/drvf1bwps/image/upload/v1651014353/YelpCamp/h2r9ygtjpnutbwxduqx2.jpg",
-            //         filename: "YelpCamp/h2r9ygtjpnutbwxduqx2",
-            //     },
-            //     {
-            //         url: "https://res.cloudinary.com/drvf1bwps/image/upload/v1650889915/YelpCamp/yqfep7h9fdcatpfx3iyz.jpg",
-            //         filename: "YelpCamp/yqfep7h9fdcatpfx3iyz",
-            //     },
-            //     {
-            //         url: "https://res.cloudinary.com/drvf1bwps/image/upload/v1650889916/YelpCamp/pmq175w1g845fzcmofex.jpg",
-            //         filename: "YelpCamp/pmq175w1g845fzcmofex",
-            //     },
-            // ],
-        });
-        await camp.save();
+        await Campground.insertMany(campgrounds);
+        console.log(`Created ${campgrounds.length} new campgrounds`);
+    } catch (error) {
+        console.error("Error seeding database:", error);
     }
-    // const c = new Campground({ title: "purple field" });
-    // await c.save();
 };
 
-seedDB().then(() => {
-    mongoose.connection.close();
-});
+// Remove this line as we're now calling seedDB() after successful connection
+// seedDB().then(() => {
+//     mongoose.connection.close();
+// });
