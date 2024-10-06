@@ -21,6 +21,7 @@ body {
     overflow-y: auto;
     display: flex;
     flex-direction: column;
+    padding-top: 56px; /* Adjust this value based on your navbar height */
 }
 
 h1 {

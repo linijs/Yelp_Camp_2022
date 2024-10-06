@@ -12,6 +12,7 @@
     "license": "ISC",
     "dependencies": {
         "@mapbox/mapbox-sdk": "^0.16.1",
+        "animejs": "^3.2.2",
         "buffer-crc32": "^1.0.0",
         "cloudinary": "^1.41.3",
         "connect-flash": "^0.1.1",
