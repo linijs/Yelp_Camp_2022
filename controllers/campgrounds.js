@@ -5,8 +5,62 @@ const geoCoder = mbxGeocoding({ accessToken: mapBoxToken });
 const { cloudinary } = require("../cloudinary");
 
 module.exports.index = async (req, res) => {
-    const campgrounds = await Campground.find({});
-    res.render("campgrounds/index", { campgrounds });
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = 6; // Number of campgrounds per page
+
+        const options = {
+            page: page,
+            limit: limit,
+            sort: { _id: -1 }, // Sort by newest first
+        };
+
+        const campgrounds = await Campground.paginate({}, options);
+
+        // Calculate the total number of pages
+        const totalPages = campgrounds.totalPages;
+
+        // Generate an array of page numbers to display
+        let pageNumbers = [];
+        if (totalPages <= 5) {
+            pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
+        } else {
+            if (page <= 3) {
+                pageNumbers = [1, 2, 3, 4, 5, "...", totalPages];
+            } else if (page > totalPages - 3) {
+                pageNumbers = [
+                    1,
+                    "...",
+                    totalPages - 4,
+                    totalPages - 3,
+                    totalPages - 2,
+                    totalPages - 1,
+                    totalPages,
+                ];
+            } else {
+                pageNumbers = [
+                    1,
+                    "...",
+                    page - 1,
+                    page,
+                    page + 1,
+                    "...",
+                    totalPages,
+                ];
+            }
+        }
+
+        res.render("campgrounds/index", {
+            campgrounds,
+            pageNumbers,
+            currentPage: page,
+        });
+    } catch (error) {
+        console.error("Error fetching campgrounds:", error);
+        res.status(500).render("error", {
+            error: "Failed to load campgrounds",
+        });
+    }
 };
 
 module.exports.renderNewForm = (req, res) => {

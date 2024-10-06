@@ -9,30 +9,7 @@ const upload = multer({ storage });
 
 const Campground = require("../models/campground");
 
-router.get(
-    "/",
-    catchAsync(async (req, res) => {
-        try {
-            const page = parseInt(req.query.page) || 1;
-            const limit = 9; // Number of campgrounds per page
-
-            const options = {
-                page: page,
-                limit: limit,
-                sort: { _id: -1 }, // Sort by newest first
-            };
-
-            const campgrounds = await Campground.paginate({}, options);
-            console.log("Campgrounds object:", campgrounds);
-            res.render("campgrounds/index", { campgrounds });
-        } catch (error) {
-            console.error("Error fetching campgrounds:", error);
-            res.status(500).render("error", {
-                error: "Failed to load campgrounds",
-            });
-        }
-    })
-);
+router.get("/", catchAsync(campgrounds.index));
 
 router
     .route("/")

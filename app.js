@@ -89,6 +89,14 @@ const scriptSrcUrls = [
     "https://cdn.jsdelivr.net/",
     "https://res.cloudinary.com/drvf1bwps/",
 ];
+
+const connectSrcUrls = [
+    "https://api.mapbox.com/",
+    "https://a.tiles.mapbox.com/",
+    "https://b.tiles.mapbox.com/",
+    "https://events.mapbox.com/",
+];
+
 const styleSrcUrls = [
     "https://kit-free.fontawesome.com/",
     "https://stackpath.bootstrapcdn.com/",
@@ -97,15 +105,9 @@ const styleSrcUrls = [
     "https://fonts.googleapis.com/",
     "https://use.fontawesome.com/",
     "https://cdn.jsdelivr.net/",
-    "https://res.cloudinary.com/drvf1bwps/",
 ];
-const connectSrcUrls = [
-    "https://*.tiles.mapbox.com",
-    "https://api.mapbox.com",
-    "https://events.mapbox.com",
-    "https://res.cloudinary.com/drvf1bwps/",
-];
-const fontSrcUrls = ["https://res.cloudinary.com/drvf1bwps/"];
+
+const fontSrcUrls = ["https://fonts.gstatic.com/", "https://cdn.jsdelivr.net/"];
 
 app.use(
     helmet.contentSecurityPolicy({
@@ -120,11 +122,12 @@ app.use(
                 "'self'",
                 "blob:",
                 "data:",
-                "https://res.cloudinary.com/drvf1bwps/", //CLOUDINARY ACCOUNT
+                "https://res.cloudinary.com/drvf1bwps/",
                 "https://images.unsplash.com/",
+                "https://api.mapbox.com/",
             ],
             fontSrc: ["'self'", ...fontSrcUrls],
-            mediaSrc: ["https://res.cloudinary.com/drvf1bwps/"],
+            mediaSrc: ["'self'", "https://res.cloudinary.com/drvf1bwps/"],
             childSrc: ["blob:"],
         },
         crossOriginEmbedderPolicy: false,
