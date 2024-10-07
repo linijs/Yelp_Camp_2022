@@ -427,3 +427,242 @@ html {
 .no-scroll {
     overflow: hidden;
 }
+
+/* Responsive adjustments */
+@media (max-width: 991.98px) {
+    .navbar-nav {
+        margin-top: 1rem;
+    }
+
+    .navbar-nav .nav-item {
+        margin-bottom: 0.5rem;
+    }
+
+    .navbar-nav .btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+.popular-parks-container {
+    width: 100%;
+    overflow: hidden;
+    padding: 1.5rem 0;
+}
+
+.popular-parks-scroll {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.popular-parks-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.popular-park-card {
+    flex: 0 0 auto;
+    width: 600px;
+    margin-right: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border: 1px solid grey;
+}
+
+.popular-park-card img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.popular-park-info {
+    padding: 15px;
+}
+
+.popular-park-info h3 {
+    margin-bottom: 10px;
+}
+
+.popular-park-info p {
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.popular-parks-scroll.active {
+    cursor: grabbing;
+    cursor: -webkit-grabbing;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Styles for cards */
+.card {
+    transition: transform 0.2s;
+}
+.card:hover {
+    transform: translateY(-5px);
+}
+.card-img-container {
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+}
+.card-img-top {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-text {
+    flex-grow: 1;
+}
+
+.badge {
+    font-size: 0.9rem;
+    background-color: #000;
+    color: #fff;
+}
+
+/* Styles for pagination */
+.pagination .page-link {
+    color: black;
+}
+.pagination .page-item.active .page-link {
+    background-color: black;
+    border-color: black;
+    color: white;
+}
+.pagination .page-link:hover {
+    color: #333;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+}
+
+/* Styles for lazy loading images */
+.lazy-image-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.lazy-image {
+    transition: opacity 0.5s;
+    opacity: 0;
+}
+
+.lazy-image.loaded {
+    opacity: 1;
+}
+
+.lazy-image-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: blur(10px);
+    transform: scale(1.1);
+    transition: opacity 0.5s;
+}
+
+.section-spacing {
+    margin-bottom: 6rem;
+}
+
+/* Mapbox custom popup styles */
+.custom-popup {
+    font-family: "Inter", sans-serif;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 0;
+    max-width: 300px;
+}
+
+.custom-popup .mapboxgl-popup-content {
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 8px;
+}
+
+.custom-popup .mapboxgl-popup-close-button {
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    color: #333;
+    background: none;
+    border: none;
+}
+
+.custom-popup h3 {
+    margin: 0 0 10px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.custom-popup p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.custom-popup .mapboxgl-popup-tip {
+    border-top-color: rgba(255, 255, 255, 0.95);
+    border-bottom-color: rgba(255, 255, 255, 0.95);
+}
+
+.static-nav header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transform: none !important;
+}
+
+.static-nav main {
+    padding-top: 56px;
+}
+
+/* Hero section styles */
+#hero-section {
+    height: 100vh;
+    margin-top: -56px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 6rem;
+}
+
+#bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.hero-content {
+    text-align: center;
+    color: white;
+    z-index: 1;
+}
+
+.no-scroll {
+    overflow: hidden;
+}

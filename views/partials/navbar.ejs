@@ -2,74 +2,63 @@
     class="navbar sticky-top navbar-expand-lg navbar-light bg-white p-3 mb-auto w-100"
 >
     <div class="container-fluid">
-        <div class="d-flex justify-content-between align-items-center w-100">
-            <a
-                href="/"
-                class="navbar-brand text-decoration-none d-flex align-items-center"
-            >
-                <img
-                    src="/images/Terrainly_logo.png"
-                    alt="Terrainly Logo"
-                    class="logo"
-                    width="30"
-                />
-                <h3 class="mb-0">Terrainly</h3>
-            </a>
-            <button
-                class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarNav"
-                aria-controls="navbarNav"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-            >
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div
-                class="collapse navbar-collapse justify-content-end"
-                id="navbarNav"
-            >
-                <ul class="navbar-nav nav-masthead align-items-baseline">
-                    <li class="nav-item me-2">
-                        <% if (currentUser) { %> <% if (typeof isIndexPage !==
-                        'undefined' && isIndexPage) { %>
-                        <a
-                            class="nav-link btn btn-dark text-white create-park-btn px-3 py-2"
-                            href="/campgrounds/new"
-                            >Create Park</a
-                        >
-                        <% } %> <% } else { %>
-                        <a
-                            class="nav-link btn btn-dark text-white login-btn px-3 py-2"
-                            href="/login"
-                            >Login to Create Park</a
-                        >
-                        <% } %>
-                    </li>
-                    <% if(!currentUser) { %> <%#
-                    <li class="nav-item me-2">
-                        <a class="nav-link text-dark p-2" href="/login"
-                            >Login</a
-                        >
-                    </li>
-                    %>
-                    <li class="nav-item">
-                        <a
-                            class="nav-link btn btn-outline-dark register-btn p-2"
-                            href="/register"
-                            >Register</a
-                        >
-                    </li>
-                    <% } else { %>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark p-2" href="/logout"
-                            >Logout</a
-                        >
-                    </li>
+        <a
+            href="/"
+            class="navbar-brand text-decoration-none d-flex align-items-center"
+        >
+            <img
+                src="/images/Terrainly_logo.png"
+                alt="Terrainly Logo"
+                class="logo"
+                width="30"
+            />
+            <h3 class="mb-0 ms-2">Terrainly</h3>
+        </a>
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-center">
+                <li class="nav-item me-2">
+                    <% if (currentUser) { %> <% if (typeof isIndexPage !==
+                    'undefined' && isIndexPage) { %>
+                    <a
+                        class="nav-link btn btn-secondary text-white px-3 py-2"
+                        href="/campgrounds/new"
+                        >Create Park</a
+                    >
+                    <% } %> <% } else { %>
+                    <a
+                        class="nav-link btn btn-secondary text-white px-3 py-2"
+                        href="/login"
+                        >Login to Create Park</a
+                    >
                     <% } %>
-                </ul>
-            </div>
+                </li>
+                <% if(!currentUser) { %>
+                <li class="nav-item">
+                    <a
+                        class="nav-link btn btn-outline-dark p-2"
+                        href="/register"
+                        >Register</a
+                    >
+                </li>
+                <% } else { %>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-outline-dark p-2" href="/logout"
+                        >Logout</a
+                    >
+                </li>
+                <% } %>
+            </ul>
         </div>
     </div>
 </nav>
