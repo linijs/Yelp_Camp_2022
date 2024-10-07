@@ -45,11 +45,6 @@ nav {
     height: 400px;
 }
 
-/* Sign-in styles */
-.sign-in {
-    color: var(--accent-color);
-}
-
 /* Button styles */
 .btn {
     padding: var(--padding-button);
@@ -427,4 +422,8 @@ html {
     text-align: center;
     color: white;
     z-index: 1;
+}
+
+.no-scroll {
+    overflow: hidden;
 }

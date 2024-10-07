@@ -1,4 +1,27 @@
+function loadMapData() {
+    return new Promise((resolve, reject) => {
+        // Check if mapCampgrounds is already defined
+        if (typeof mapCampgrounds !== "undefined") {
+            resolve(mapCampgrounds);
+        } else {
+            // If not defined, use the default data loading logic
+            setTimeout(() => {
+                mapCampgrounds = [
+                    /* your campgrounds data */
+                ];
+                resolve(mapCampgrounds);
+            }, 1000);
+        }
+    });
+}
+
 function initMap() {
+    // Check if mapCampgrounds data is available
+    if (typeof mapCampgrounds === "undefined" || !mapCampgrounds) {
+        console.error("Map Campgrounds data is not available");
+        return;
+    }
+
     mapboxgl.accessToken = mapToken;
 
     const map = new mapboxgl.Map({
@@ -96,7 +119,7 @@ function initMap() {
         });
 
         map.on("click", "unclustered-point", (e) => {
-            const { popUpMarkup } = e.features[0].properties;
+            const { id, title, location, price } = e.features[0].properties;
             const coordinates = e.features[0].geometry.coordinates.slice();
 
             while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
@@ -105,7 +128,14 @@ function initMap() {
 
             new mapboxgl.Popup()
                 .setLngLat(coordinates)
-                .setHTML(popUpMarkup)
+                .setHTML(
+                    `
+                    <h5>${title}</h5>
+                    <p>${location}</p>
+                    <p>€ ${price}/night</p>
+                    <a href="/campgrounds/${id}" class="btn btn-secondary">View Park</a>
+                `
+                )
                 .addTo(map);
         });
 
@@ -127,15 +157,15 @@ function isInViewport(element) {
     );
 }
 
-function loadMapOnScroll() {
+async function loadMapOnScroll() {
     const mapElement = document.getElementById("cluster-map");
     if (mapElement && isInViewport(mapElement) && !window.mapLoaded) {
         window.mapLoaded = true;
-        // Ensure campgrounds data is available before initializing the map
-        if (typeof campgrounds !== "undefined" && campgrounds) {
+        try {
+            await loadMapData();
             initMap();
-        } else {
-            console.error("Campgrounds data is not available");
+        } catch (error) {
+            console.error("Failed to load map data:", error);
         }
         window.removeEventListener("scroll", loadMapOnScroll);
     }
@@ -143,9 +173,15 @@ function loadMapOnScroll() {
 
 window.addEventListener("scroll", loadMapOnScroll);
 
-document.addEventListener("DOMContentLoaded", () => {
-    loadMapOnScroll();
-    window.dispatchEvent(new Event("scroll"));
+document.addEventListener("DOMContentLoaded", async function () {
+    if (document.getElementById("cluster-map")) {
+        try {
+            await loadMapData();
+            initMap();
+        } catch (error) {
+            console.error("Failed to load map data:", error);
+        }
+    }
 });
 
 function loadMapboxScript() {
@@ -175,6 +211,11 @@ loadMapboxScript();
 // At the end of the file
 document.addEventListener("DOMContentLoaded", function () {
     if (document.getElementById("cluster-map")) {
-        initMap();
+        // Ensure mapCampgrounds data is available before initializing the map
+        if (typeof mapCampgrounds !== "undefined" && mapCampgrounds) {
+            initMap();
+        } else {
+            console.error("Map Campgrounds data is not available");
+        }
     }
 });

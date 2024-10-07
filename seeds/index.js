@@ -185,27 +185,7 @@ const seedDB = async () => {
                     ],
                 },
 
-                // image: imageUrls[Math.floor(Math.random() * imageUrls.length)],
                 images: campgroundImages,
-
-                // images: [
-                //     {
-                //         url: "https://res.cloudinary.com/drvf1bwps/image/upload/v1651012681/YelpCamp/oavnfk5fdftyeu2zivoj.jpg",
-                //         filename: "YelpCamp/woavnfk5fdftyeu2zivoj",
-                //     },
-                //     {
-                //         url: "https://res.cloudinary.com/drvf1bwps/image/upload/v1651014353/YelpCamp/h2r9ygtjpnutbwxduqx2.jpg",
-                //         filename: "YelpCamp/h2r9ygtjpnutbwxduqx2",
-                //     },
-                //     {
-                //         url: "https://res.cloudinary.com/drvf1bwps/image/upload/v1650889915/YelpCamp/yqfep7h9fdcatpfx3iyz.jpg",
-                //         filename: "YelpCamp/yqfep7h9fdcatpfx3iyz",
-                //     },
-                //     {
-                //         url: "https://res.cloudinary.com/drvf1bwps/image/upload/v1650889916/YelpCamp/pmq175w1g845fzcmofex.jpg",
-                //         filename: "YelpCamp/pmq175w1g845fzcmofex",
-                //     },
-                // ],
             });
             campgrounds.push(camp);
         }
@@ -216,8 +196,3 @@ const seedDB = async () => {
         console.error("Error seeding database:", error);
     }
 };
-
-// Remove this line as we're now calling seedDB() after successful connection
-// seedDB().then(() => {
-//     mongoose.connection.close();
-// });

@@ -179,7 +179,7 @@ app.get("/", async (req, res) => {
                     title: camp.title,
                     description: camp.description,
                     location: camp.location,
-                    price: camp.price, // Added price
+                    price: camp.price,
                 },
             })),
         };

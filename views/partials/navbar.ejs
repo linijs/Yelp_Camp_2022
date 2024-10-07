@@ -39,12 +39,6 @@
                             href="/campgrounds/new"
                             >Create Park</a
                         >
-                        <% } else { %>
-                        <a
-                            class="nav-link btn btn-dark text-white campgrounds-btn px-3 py-2"
-                            href="/campgrounds"
-                            >View Parks</a
-                        >
                         <% } %> <% } else { %>
                         <a
                             class="nav-link btn btn-dark text-white login-btn px-3 py-2"
@@ -53,12 +47,13 @@
                         >
                         <% } %>
                     </li>
-                    <% if(!currentUser) { %>
+                    <% if(!currentUser) { %> <%#
                     <li class="nav-item me-2">
                         <a class="nav-link text-dark p-2" href="/login"
                             >Login</a
                         >
                     </li>
+                    %>
                     <li class="nav-item">
                         <a
                             class="nav-link btn btn-outline-dark register-btn p-2"
