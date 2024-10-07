@@ -54,6 +54,7 @@ module.exports.index = async (req, res) => {
             campgrounds,
             pageNumbers,
             currentPage: page,
+            page: "index", // Add this line
         });
     } catch (error) {
         console.error("Error fetching campgrounds:", error);

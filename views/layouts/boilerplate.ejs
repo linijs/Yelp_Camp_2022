@@ -6,8 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link
             rel="icon"
-            href="../public/images/favicon.ico"
-            type="image/x-icon"
+            href="../public/images/favicon.png"
+            type="image/x-png"
             sizes="16x16"
         />
         <title>YelpCamp</title>
@@ -31,7 +31,7 @@
         <link rel="stylesheet" href="/stylesheets/app.css" />
         <style>
             body {
-                padding-top: 56px; /* Adjust this value based on your navbar height */
+                padding-top: 56px;
             }
         </style>
     </head>
@@ -54,7 +54,11 @@
             let isAnimating = false;
 
             function handleScroll() {
-                if (isAnimating) return;
+                if (
+                    isAnimating ||
+                    document.body.classList.contains("static-nav")
+                )
+                    return;
 
                 let scrollTop =
                     window.pageYOffset || document.documentElement.scrollTop;

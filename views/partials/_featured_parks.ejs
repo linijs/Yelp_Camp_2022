@@ -1,0 +1,50 @@
+<div class="container-custom section-spacing mt-2">
+    <div class="secondary-heading">
+        <h1 class="mb-4">
+            Featured Parks and <br />
+            Reserves
+        </h1>
+        <p>
+            From Gauja's ancient forests to Slītere's coastal dunes,
+            <br />
+            embark on your next Latvian adventure with our expert picks.
+        </p>
+    </div>
+
+    <div class="popular-parks-container">
+        <div class="popular-parks-scroll" id="popularParks">
+            <% if (campgrounds && campgrounds.docs && campgrounds.docs.length >
+            0) { %> <% const popularParks = campgrounds.docs.sort(() => 0.5 -
+            Math.random()).slice(0, 3); %> <% for (let park of popularParks) {
+            %>
+            <div class="popular-park-card">
+                <div class="lazy-image-container">
+                    <div
+                        class="lazy-image-placeholder"
+                        style="
+                            background-image: url('<%= park.images && park.images.length ? park.images[0].url : 'https://res.cloudinary.com/drvf1bwps/image/upload/v1650983178/YelpCamp/yxcc5gwoe16lk7kapphq.jpg' %>');
+                        "
+                    ></div>
+                    <img
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+                        data-src="<%= park.images && park.images.length ? park.images[0].url : 'https://res.cloudinary.com/drvf1bwps/image/upload/v1650983178/YelpCamp/yxcc5gwoe16lk7kapphq.jpg' %>"
+                        alt="<%= park.title %>"
+                        class="lazy-image loading"
+                    />
+                </div>
+                <div class="popular-park-info">
+                    <h3><%= park.title %></h3>
+                    <p><%= park.location %></p>
+                    <a
+                        href="/campgrounds/<%= park._id %>"
+                        class="btn btn-primary"
+                        >View Details</a
+                    >
+                </div>
+            </div>
+            <% } %> <% } else { %>
+            <p>No parks available at the moment.</p>
+            <% } %>
+        </div>
+    </div>
+</div>

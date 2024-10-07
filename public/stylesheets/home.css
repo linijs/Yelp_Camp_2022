@@ -8,25 +8,3 @@ body {
     margin: 0;
     padding: 0;
 }
-
-.cover-container {
-    max-width: 60vw;
-}
-
-/* Bottom left content styles */
-.bottom-left-content {
-    position: fixed;
-    bottom: 5%;
-    left: 5%;
-    text-align: left;
-    max-width: 90%;
-}
-
-@media (max-width: 768px) {
-    .bottom-left-content {
-        left: 50%;
-        transform: translateX(-50%);
-        text-align: center;
-        width: 90%;
-    }
-}

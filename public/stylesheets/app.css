@@ -16,12 +16,10 @@
 body {
     font-family: var(--font-family);
     min-height: 100vh;
-    position: relative;
-    overflow-x: hidden;
-    overflow-y: auto;
     display: flex;
     flex-direction: column;
-    padding-top: 56px; /* Adjust this value based on your navbar height */
+    padding-top: 56px;
+    overflow-x: hidden;
 }
 
 h1 {
@@ -52,37 +50,28 @@ nav {
 }
 
 /* Button styles */
-.campgrounds-btn {
+.btn {
     padding: var(--padding-button);
     border-radius: var(--border-radius);
     transition: all var(--transition-speed) ease;
 }
 
-.campgrounds-btn:hover {
-    background-color: var(--secondary-color) !important;
-    color: var(--primary-color) !important;
+.btn-primary,
+.btn-secondary {
+    border: 1px solid var(--primary-color);
 }
 
 .btn-primary {
     background-color: var(--secondary-color);
     color: var(--primary-color);
-    border-radius: var(--border-radius);
-    border: 1px solid var(--primary-color);
-}
-
-.btn-primary:hover {
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
 }
 
 .btn-secondary {
     background-color: var(--primary-color);
     color: var(--secondary-color);
-    border-radius: var(--border-radius);
-    border: 1px solid var(--secondary-color);
 }
 
-.btn-secondary:hover {
+.btn:hover {
     background-color: var(--secondary-color);
     color: var(--primary-color);
 }
@@ -99,36 +88,45 @@ nav {
     color: var(--secondary-color);
 }
 
-/* Video background styles */
-main {
+/* Bottom left content styles */
+.bottom-left-content {
+    position: absolute;
+    bottom: 10%;
+    left: 5%;
+    text-align: left;
+    max-width: 90%;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .bottom-left-content {
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        width: 90%;
+    }
+}
+
+/* Video background and content styles */
+main,
+.content {
     position: relative;
     width: 100%;
-    min-height: 100vh;
-    overflow: hidden;
+    min-height: calc(100vh - 25vh);
+    overflow: visible;
     flex: 1 0 auto;
 }
 
 #bg-video {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    transform: translateX(-50%) translateY(-50%);
-    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
+    z-index: -1;
     opacity: 1;
     transition: opacity 0.5s ease-in-out;
-}
-
-.content {
-    position: relative;
-    z-index: 1;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
 }
 
 .no-scroll {
@@ -155,7 +153,6 @@ main {
 .text-paragraph {
     font-size: clamp(1rem, 2vw, 1.2rem);
     text-align: center;
-    margin-bottom: 2rem;
     width: 100%;
     max-width: 600px;
     line-height: 18px;
@@ -191,9 +188,7 @@ main {
     .container-custom {
         width: 95%;
     }
-}
 
-@media (max-width: 768px) {
     .text-muted {
         font-size: 0.7rem;
         margin-bottom: 0.5rem;
@@ -293,11 +288,15 @@ html {
     display: flex;
     flex-direction: column;
 }
+
 .card-text {
     flex-grow: 1;
 }
+
 .badge {
     font-size: 0.9rem;
+    background-color: #000;
+    color: #fff;
 }
 
 /* Styles for pagination */
@@ -345,4 +344,86 @@ html {
 
 .section-spacing {
     margin-bottom: 6rem;
+}
+
+/* Mapbox custom popup styles */
+.custom-popup {
+    font-family: "Inter", sans-serif;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 0;
+    max-width: 300px;
+}
+
+.custom-popup .mapboxgl-popup-content {
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 8px;
+}
+
+.custom-popup .mapboxgl-popup-close-button {
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    color: #333;
+    background: none;
+    border: none;
+}
+
+.custom-popup h3 {
+    margin: 0 0 10px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.custom-popup p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.custom-popup .mapboxgl-popup-tip {
+    border-top-color: rgba(255, 255, 255, 0.95);
+    border-bottom-color: rgba(255, 255, 255, 0.95);
+}
+
+.static-nav header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transform: none !important;
+}
+
+.static-nav main {
+    padding-top: 56px;
+}
+
+/* Hero section styles */
+#hero-section {
+    height: 100vh;
+    margin-top: -56px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 6rem;
+}
+
+#bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.hero-content {
+    text-align: center;
+    color: white;
+    z-index: 1;
 }

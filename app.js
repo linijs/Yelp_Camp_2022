@@ -1,3 +1,5 @@
+const Campground = require("./models/campground");
+
 if (process.env.NODE_ENV !== "production") {
     require("dotenv").config();
 }
@@ -153,8 +155,29 @@ app.use("/", userRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/reviews", reviewRoutes);
 
-app.get("/", (req, res) => {
-    res.render("home");
+app.get("/", async (req, res) => {
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = 6;
+        const campgrounds = await Campground.paginate(
+            {},
+            {
+                page,
+                limit,
+                sort: "-createdAt",
+                select: "title location description images", // Add or remove fields as needed
+            }
+        );
+        res.render("home", {
+            campgrounds: campgrounds.docs, // This is the key change
+            currentPage: campgrounds.page,
+            pages: campgrounds.totalPages,
+            totalDocs: campgrounds.totalDocs,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("An error occurred while fetching campgrounds");
+    }
 });
 
 app.all("*", (req, res, next) => {
