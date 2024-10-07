@@ -1,19 +1,9 @@
-<div class="container-custom section-spacing">
-    <div class="container mb-4">
-        <div class="headings">
-            <span class="text-muted" id="all-parks">Explore All Parks</span>
-            <h2 class="text-center">Hidden Gems and Popular Destinations</h2>
-            <p class="text-paragraph">
-                Discover the diverse beauty of Latvia's outdoor spaces, from
-                tranquil reserves to bustling national parks. Find your perfect
-                natural escape.
-            </p>
-        </div>
-    </div>
+<section class="container-custom section-spacing">
+    <h2 class="mb-4">All Parks</h2>
 
-    <% if (campgrounds && campgrounds.length > 0) { %>
+    <% if (campgrounds && campgrounds.docs && campgrounds.docs.length > 0) { %>
     <div class="row">
-        <% for(let campground of campgrounds) { %>
+        <% for(let campground of campgrounds.docs) { %>
         <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100 shadow-sm">
                 <div class="card-img-container lazy-image-container">
@@ -52,51 +42,30 @@
                                 >View Details</a
                             >
                         </div>
-                        <small class="text-muted">
-                            <i class="fas fa-star text-warning"></i> 4.5 (42
-                            reviews)
-                        </small>
+                        <small class="text-muted"
+                            ><i class="fas fa-star text-warning"></i> 4.5 (42
+                            reviews)</small
+                        >
                     </div>
                 </div>
             </div>
         </div>
         <% } %>
     </div>
+    <% } else { %>
+    <p>No campgrounds found.</p>
+    <% } %>
 
     <!-- Pagination -->
-    <% if (pages > 1) { %>
-    <nav aria-label="Campground pagination">
+    <% if (campgrounds && campgrounds.totalPages > 1) { %>
+    <nav aria-label="Page navigation" class="mt-4">
         <ul class="pagination justify-content-center">
-            <% if (currentPage > 1) { %>
-            <li class="page-item">
-                <a
-                    class="page-link"
-                    href="/?page=<%= currentPage - 1 %>#all-parks"
-                    aria-label="Previous"
-                >
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            <% } %> <% for (let i = 1; i <= pages; i++) { %>
-            <li class="page-item <%= i === currentPage ? 'active' : '' %>">
-                <a class="page-link" href="/?page=<%= i %>#all-parks"
-                    ><%= i %></a
-                >
-            </li>
-            <% } %> <% if (currentPage < pages) { %>
-            <li class="page-item">
-                <a
-                    class="page-link"
-                    href="/?page=<%= currentPage + 1 %>#all-parks"
-                    aria-label="Next"
-                >
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
+            <% for (let i = 1; i <= campgrounds.totalPages; i++) { %>
+            <li class="page-item <%= campgrounds.page == i ? 'active' : '' %>">
+                <a class="page-link" href="/?page=<%= i %>"><%= i %></a>
             </li>
             <% } %>
         </ul>
     </nav>
-    <% } %> <% } else { %>
-    <p>No campgrounds found.</p>
     <% } %>
-</div>
+</section>

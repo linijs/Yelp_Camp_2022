@@ -33,6 +33,7 @@ nav {
 /* Map styles */
 #cluster-map {
     width: 100%;
+    height: 500px; /* Adjust as needed */
     max-width: 1700px;
     height: 800px;
     margin: 0 auto;

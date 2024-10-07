@@ -165,11 +165,28 @@ app.get("/", async (req, res) => {
                 page,
                 limit,
                 sort: "-createdAt",
-                select: "title location description images", // Add or remove fields as needed
+                select: "title location description images geometry price", // Added price
             }
         );
+
+        // Transform campgrounds into GeoJSON format for the map
+        const mapCampgrounds = {
+            features: campgrounds.docs.map((camp) => ({
+                type: "Feature",
+                geometry: camp.geometry,
+                properties: {
+                    id: camp._id,
+                    title: camp.title,
+                    description: camp.description,
+                    location: camp.location,
+                    price: camp.price, // Added price
+                },
+            })),
+        };
+
         res.render("home", {
-            campgrounds: campgrounds.docs, // This is the key change
+            campgrounds: campgrounds,
+            mapCampgrounds: mapCampgrounds,
             currentPage: campgrounds.page,
             pages: campgrounds.totalPages,
             totalDocs: campgrounds.totalDocs,

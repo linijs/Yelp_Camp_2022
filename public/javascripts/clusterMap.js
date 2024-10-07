@@ -11,9 +11,15 @@ function initMap() {
     map.addControl(new mapboxgl.NavigationControl());
 
     map.on("load", () => {
+        // Check if mapCampgrounds data is available
+        if (typeof mapCampgrounds === "undefined" || !mapCampgrounds) {
+            console.error("Map Campgrounds data is not available");
+            return;
+        }
+
         map.addSource("campgrounds", {
             type: "geojson",
-            data: campgrounds,
+            data: mapCampgrounds,
             cluster: true,
             clusterMaxZoom: 14,
             clusterRadius: 75,
@@ -125,7 +131,12 @@ function loadMapOnScroll() {
     const mapElement = document.getElementById("cluster-map");
     if (mapElement && isInViewport(mapElement) && !window.mapLoaded) {
         window.mapLoaded = true;
-        initMap();
+        // Ensure campgrounds data is available before initializing the map
+        if (typeof campgrounds !== "undefined" && campgrounds) {
+            initMap();
+        } else {
+            console.error("Campgrounds data is not available");
+        }
         window.removeEventListener("scroll", loadMapOnScroll);
     }
 }
@@ -160,3 +171,10 @@ function loadMapboxScript() {
 }
 
 loadMapboxScript();
+
+// At the end of the file
+document.addEventListener("DOMContentLoaded", function () {
+    if (document.getElementById("cluster-map")) {
+        initMap();
+    }
+});

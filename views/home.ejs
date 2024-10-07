@@ -75,7 +75,8 @@
         </script>
         <script>
             const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
-            const campgrounds = { features: <%- JSON.stringify(campgrounds && campgrounds.docs ? campgrounds.docs : []) %> };
+            const mapCampgrounds = <%- JSON.stringify(mapCampgrounds) %>;
+            console.log('Map Campgrounds data in home.ejs:', mapCampgrounds);
         </script>
 
         <script src="/javascripts/lazyLoading.js"></script>
