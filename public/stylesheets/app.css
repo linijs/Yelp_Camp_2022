@@ -164,7 +164,7 @@ main,
 
 .bottom-left-content {
     position: absolute;
-    bottom: 10%;
+    bottom: 5%;
     left: 5%;
     text-align: left;
     max-width: 90%;
@@ -216,6 +216,10 @@ main,
     width: 100%;
     overflow: hidden;
     padding: 1.5rem 0;
+}
+
+.popular-park-card {
+    transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
 .popular-parks-scroll {

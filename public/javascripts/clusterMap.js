@@ -145,8 +145,6 @@ function initMap() {
         map.on("mouseleave", "clusters", () => {
             map.getCanvas().style.cursor = "";
         });
-
-        document.getElementById("cluster-map").style.opacity = "1";
     });
 }
 
@@ -194,14 +192,8 @@ function loadMapboxScript() {
         link.rel = "stylesheet";
         document.head.appendChild(link);
 
-        const style = document.createElement("style");
-        style.textContent = `
-            #cluster-map {
-                opacity: 0;
-                transition: opacity 1s ease-in-out;
-            }
-        `;
-        document.head.appendChild(style);
+        // Initialize GSAP animation after Mapbox is loaded
+        setupMapAnimation();
     };
     document.head.appendChild(script);
 }
@@ -209,13 +201,37 @@ function loadMapboxScript() {
 loadMapboxScript();
 
 // At the end of the file
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
     if (document.getElementById("cluster-map")) {
-        // Ensure mapCampgrounds data is available before initializing the map
-        if (typeof mapCampgrounds !== "undefined" && mapCampgrounds) {
+        try {
+            await loadMapData();
             initMap();
-        } else {
-            console.error("Map Campgrounds data is not available");
+            setupMapAnimation();
+        } catch (error) {
+            console.error("Failed to load map data:", error);
         }
     }
 });
+
+function setupMapAnimation() {
+    const mapElement = document.getElementById("cluster-map");
+    if (mapElement) {
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.fromTo(
+            mapElement,
+            { opacity: 0, y: 50 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                scrollTrigger: {
+                    trigger: mapElement,
+                    start: "top bottom-=100",
+                    end: "bottom top+=100",
+                    toggleActions: "play none none reverse",
+                },
+            }
+        );
+    }
+}

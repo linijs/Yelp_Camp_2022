@@ -1,9 +1,13 @@
-<div class="container-custom section-spacing mt-2">
+<div
+    class="container-custom section-spacing mt-2"
+    data-scroll
+    data-scroll-speed="1"
+>
     <div class="secondary-heading">
-        <h1 class="mb-4">
-            Featured Parks and <br />
-            Reserves
-        </h1>
+        <div class="mb-4">
+            <h1 data-animate-heading>Featured Parks and</h1>
+            <h1 data-animate-heading>Reserves</h1>
+        </div>
         <p>
             From Gauja's ancient forests to Slītere's coastal dunes,
             <br />
@@ -17,7 +21,10 @@
             0) { %> <% const popularParks = campgrounds.docs.sort(() => 0.5 -
             Math.random()).slice(0, 2); %> <% for (let park of popularParks) {
             %>
-            <div class="popular-park-card">
+            <div
+                class="popular-park-card"
+                style="opacity: 1; transform: translateY(0)"
+            >
                 <div class="lazy-image-container">
                     <div
                         class="lazy-image-placeholder"

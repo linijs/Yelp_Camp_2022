@@ -1,0 +1,27 @@
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateX(15px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.animate-hero {
+    animation: fadeIn 1.5s ease-out;
+}
+
+.animate-content {
+    animation: slideUp 1s ease-out 0.5s both;
+}
