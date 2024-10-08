@@ -1,12 +1,20 @@
 <% layout('./layouts/boilerplate')%>
 
-<div
-    class="container-fluid d-flex justify-content-center align-items-center vh-100"
->
-    <div class="col-md-6 col-lg-4">
-        <div class="card border-0 shadow-lg">
-            <div class="card-body p-5">
-                <h2 class="card-title text-center mb-4">Sign Up</h2>
+<div class="container login-container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="login-form">
+                <h1 class="mb-3">
+                    <img
+                        src="/images/Terrainly_logo.png"
+                        alt="Terrainly Logo"
+                        class="logo"
+                        width="30"
+                    />
+                    <span class="terrainly-text">Terrainly</span>
+                </h1>
+                <h2 class="h3 mb-2"><strong>Welcome!</strong></h2>
+                <p class="text-muted mb-3">Create your account</p>
                 <form
                     action="/register"
                     method="POST"
@@ -18,7 +26,7 @@
                             >Username</label
                         >
                         <input
-                            class="form-control form-control-lg"
+                            class="form-control"
                             type="text"
                             id="username"
                             name="username"
@@ -29,40 +37,43 @@
                     <div class="mb-3">
                         <label class="form-label" for="email">Email</label>
                         <input
-                            class="form-control form-control-lg"
+                            class="form-control"
                             type="email"
                             name="email"
                             id="email"
                             required
                         />
                     </div>
-                    <div class="mb-4">
+                    <div class="mb-3">
                         <label class="form-label" for="password"
                             >Password</label
                         >
                         <input
-                            class="form-control form-control-lg"
+                            class="form-control"
                             type="password"
                             name="password"
                             id="password"
                             required
                         />
                     </div>
-                    <div class="d-grid">
-                        <button class="btn btn-secondary btn-lg">
-                            Register
-                        </button>
-                    </div>
+                    <button type="submit" class="btn btn-secondary w-100">
+                        Register
+                    </button>
                 </form>
+                <div class="text-center mt-2">
+                    <p class="text-muted">
+                        Already have an account?
+                        <a
+                            href="/login"
+                            class="text-decoration-none fw-bold text-dark"
+                            >Sign in</a
+                        >
+                    </p>
+                </div>
             </div>
         </div>
-        <div class="text-center mt-4">
-            <p class="text-muted">
-                Already have an account?
-                <a href="/login" class="text-decoration-none fw-bold text-dark"
-                    >Sign in</a
-                >
-            </p>
+        <div class="col-md-6 d-none d-md-block">
+            <div class="login-image"></div>
         </div>
     </div>
 </div>
@@ -72,11 +83,7 @@
         overflow: hidden;
     }
 
-    .card {
-        transition: none !important;
-    }
-
-    .card:hover {
-        transform: none !important;
+    footer {
+        display: none;
     }
 </style>

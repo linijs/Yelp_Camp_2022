@@ -97,10 +97,9 @@ module.exports.showCampground = async (req, res) => {
             },
         })
         .populate("author");
-    // console.log(campground);
     if (!campground) {
         req.flash("error", "Cannot find that campground!");
-        return res.redirect("/campgrounds");
+        return res.redirect("/");
     }
     res.render("campgrounds/show", { campground });
 };
@@ -110,7 +109,7 @@ module.exports.renderEditForm = async (req, res) => {
     const campground = await Campground.findById(id);
     if (!campground) {
         req.flash("error", "Cannot find that campground!");
-        return res.redirect("/campgrounds");
+        return res.redirect("/");
     }
     res.render("campgrounds/edit", { campground });
 };
@@ -142,5 +141,5 @@ module.exports.deleteCampground = async (req, res) => {
     const { id } = req.params;
     await Campground.findByIdAndDelete(id);
     req.flash("success", "Successfully deleted campground!");
-    res.redirect("/campgrounds");
+    res.redirect("/");
 };

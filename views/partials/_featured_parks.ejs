@@ -15,7 +15,7 @@
         <div class="popular-parks-scroll" id="popularParks">
             <% if (campgrounds && campgrounds.docs && campgrounds.docs.length >
             0) { %> <% const popularParks = campgrounds.docs.sort(() => 0.5 -
-            Math.random()).slice(0, 3); %> <% for (let park of popularParks) {
+            Math.random()).slice(0, 2); %> <% for (let park of popularParks) {
             %>
             <div class="popular-park-card">
                 <div class="lazy-image-container">

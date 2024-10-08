@@ -25,7 +25,9 @@ router
 //     res.send("It worked!");
 // });
 
-router.get("/new", isLoggedIn, campgrounds.renderNewForm);
+router.get("/new", isLoggedIn, (req, res) => {
+    res.render("campgrounds/new", { isNewView: true });
+});
 
 router
     .route("/:id")

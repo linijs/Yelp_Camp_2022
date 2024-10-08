@@ -1,80 +1,142 @@
 <% layout('layouts/boilerplate')%>
-<div class="row">
-    <h1 class="text-center">New Campground</h1>
-    <div class="col-md-6 offset-md-3">
-        <form
-            action="/campgrounds"
-            method="POST"
-            novalidate
-            class="validated-form"
-            enctype="multipart/form-data"
-        >
-            <div class="mb-3">
-                <label class="form-label" for="title">Title</label>
-                <input
-                    class="form-control"
-                    type="text"
-                    id="title"
-                    name="campground[title]"
-                    required
-                />
-                <div class="valid-feedback">Looks good!</div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="location">Location</label>
-                <input
-                    class="form-control"
-                    type="text"
-                    id="location"
-                    name="campground[location]"
-                    required
-                />
-                <div class="valid-feedback">Looks good!</div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="price">Campground Price</label>
-                <div class="input-group">
-                    <span class="input-group-text" id="price-label">$</span>
-                    <input
-                        type="text"
-                        class="form-control"
-                        id="price"
-                        placeholder="0.00"
-                        aria-label="price"
-                        aria-describedby="price-label"
-                        name="campground[price]"
-                        required
-                    />
-                    <div class="valid-feedback">Looks good!</div>
+
+<div class="container-fluid vh-100 d-flex justify-content-center">
+    <div class="row justify-content-center w-100">
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+            <div class="login-form">
+                `
+                <div class="form-header mb-4">
+                    <h1 class="mb-2">
+                        <img
+                            src="/images/Terrainly_logo.png"
+                            alt="Terrainly Logo"
+                            class="logo"
+                            width="30"
+                        />
+                        <span class="terrainly-text">Terrainly</span>
+                    </h1>
+                    <h4 class="fs-5">Create a New Park Submission</h4>
                 </div>
+                <form
+                    action="/campgrounds"
+                    method="POST"
+                    novalidate
+                    class="validated-form"
+                    enctype="multipart/form-data"
+                >
+                    <div class="mb-3">
+                        <label class="form-label" for="title">Title</label>
+                        <input
+                            class="form-control"
+                            type="text"
+                            id="title"
+                            name="campground[title]"
+                            required
+                        />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="location"
+                            >Location</label
+                        >
+                        <input
+                            class="form-control"
+                            type="text"
+                            id="location"
+                            name="campground[location]"
+                            required
+                        />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="price"
+                            >Park Entrance Fee</label
+                        >
+                        <div class="input-group">
+                            <span class="input-group-text" id="price-label"
+                                >€</span
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="price"
+                                placeholder="0.00"
+                                aria-label="price"
+                                aria-describedby="price-label"
+                                name="campground[price]"
+                                required
+                            />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="description"
+                            >Description</label
+                        >
+                        <textarea
+                            class="form-control"
+                            type="text"
+                            id="description"
+                            name="campground[description]"
+                            required
+                            maxlength="500"
+                        ></textarea>
+                        <div class="form-text" id="descriptionHelp">
+                            Maximum 500 characters.
+                            <span id="charCount">0</span>/500
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label"
+                            >Upload Images</label
+                        >
+                        <input
+                            class="form-control"
+                            type="file"
+                            id="image"
+                            name="image"
+                            multiple
+                        />
+                    </div>
+                    <div class="mb-3">
+                        <button class="btn btn-secondary w-100">
+                            Add Park
+                        </button>
+                    </div>
+                </form>
             </div>
-            <div class="mb-3">
-                <label class="form-label" for="description">Description</label>
-                <textarea
-                    class="form-control"
-                    type="text"
-                    id="description"
-                    name="campground[description]"
-                    required
-                ></textarea>
-                <div class="valid-feedback">Looks good!</div>
-            </div>
-            <div class="mb-3">
-                <label for="image" class="form-label">Upload Images</label>
-                <input
-                    class="form-control"
-                    type="file"
-                    id="image"
-                    name="image"
-                    multiple
-                />
-            </div>
-            <div class="d-grid gap-2">
-                <button class="btn btn-success">Add Campground</button>
-            </div>
-        </form>
-        <div class="d-grid gap-2 mt-3">
-            <a href="/campgrounds" class="btn btn-secondary">All Campgrounds</a>
         </div>
     </div>
 </div>
+
+<style>
+    body {
+        overflow-y: hidden;
+    }
+
+    .login-form {
+        background-color: #f8f9fa;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    }
+
+    footer {
+        display: none;
+    }
+
+    @media (max-height: 800px) {
+        .container-fluid {
+            align-items: flex-start;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+    }
+</style>
+
+<script>
+    const descriptionTextarea = document.getElementById("description");
+    const charCount = document.getElementById("charCount");
+
+    descriptionTextarea.addEventListener("input", function () {
+        const remainingChars = this.value.length;
+        charCount.textContent = remainingChars;
+    });
+</script>
