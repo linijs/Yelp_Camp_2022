@@ -581,6 +581,10 @@ main,
 }
 
 @media (max-width: 991.98px) {
+    .navbar {
+        padding: 1rem 0re;
+    }
+
     .navbar-nav {
         margin-top: 1rem;
     }
