@@ -38,8 +38,33 @@
     <body class="d-flex flex-column vh-100">
         <header class="fixed-top"><%- include('../partials/navbar')%></header>
         <main class="mt-5"><%- include('../partials/flash')%> <%- body %></main>
-        <% if (!hideFooter) { %>
-        <!-- Footer HTML here -->
+        <% if (typeof hideFooter === 'undefined' || !hideFooter) { %>
+        <footer class="footer mt-auto py-3 bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5>About Terrainly</h5>
+                        <p>Discover and share beautiful parks around Latvia.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Quick Links</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/">Explore Parks</a></li>
+                            <li><a href="/campgrounds/new">Create Park</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-12">
+                        <p class="mb-0">
+                            &copy; 2024 Terrainly. All rights reserved.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
         <% } %>
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
@@ -49,56 +74,5 @@
         <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
         <script src="/javascripts/validateForms.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-        <script>
-            // let lastScrollTop = 0;
-            // const navbar = document.querySelector("header");
-            // const navbarHeight = navbar.offsetHeight;
-            // let isAnimating = false;
-
-            // function handleScroll() {
-            //     if (
-            //         isAnimating ||
-            //         document.body.classList.contains("static-nav")
-            //     )
-            //         return;
-
-            //     let scrollTop =
-            //         window.pageYOffset || document.documentElement.scrollTop;
-
-            //     if (scrollTop > lastScrollTop && scrollTop > navbarHeight) {
-            //         // Scrolling down and past the navbar height
-            //         hideNavbar();
-            //     } else if (scrollTop < lastScrollTop) {
-            //         // Scrolling up
-            //         showNavbar();
-            //     }
-
-            //     lastScrollTop = scrollTop;
-            // }
-
-            // function hideNavbar() {
-            //     isAnimating = true;
-            //     anime({
-            //         targets: navbar,
-            //         translateY: -navbarHeight,
-            //         duration: 300,
-            //         easing: "easeInOutQuad",
-            //         complete: () => (isAnimating = false),
-            //     });
-            // }
-
-            // function showNavbar() {
-            //     isAnimating = true;
-            //     anime({
-            //         targets: navbar,
-            //         translateY: 0,
-            //         duration: 300,
-            //         easing: "easeInOutQuad",
-            //         complete: () => (isAnimating = false),
-            //     });
-            // }
-
-            // window.addEventListener("scroll", handleScroll);
-        </script>
     </body>
 </html>

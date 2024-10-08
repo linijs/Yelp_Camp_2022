@@ -33,8 +33,8 @@ nav {
 /* Map styles */
 #cluster-map {
     width: 100%;
-    height: 500px; /* Adjust as needed */
-    max-width: 1700px;
+    height: 500px;
+    max-width: 1670px;
     height: 800px;
     margin: 0 auto;
     border-radius: 10px;
@@ -64,12 +64,28 @@ nav {
 
 .btn-secondary {
     background-color: var(--primary-color);
+    color: var(--secondary-color) !important;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-color);
     color: var(--secondary-color);
 }
 
-.btn:hover {
+.btn-secondary:hover {
     background-color: var(--secondary-color);
-    color: var(--primary-color);
+    color: var(--primary-color) !important;
+}
+
+.btn-outline-dark {
+    border: 1px solid var(--primary-color);
+    background-color: var(--secondary-color);
+    color: var(--primary-color) !important;
+}
+
+.btn-outline-dark:hover {
+    background-color: var(--primary-color);
+    color: var(--secondary-color) !important;
 }
 
 .register-btn {
@@ -98,7 +114,6 @@ nav {
     .bottom-left-content {
         left: 50%;
         transform: translateX(-50%);
-        text-align: center;
         width: 90%;
     }
 }
@@ -165,6 +180,7 @@ main,
     display: flex;
     justify-content: space-between;
     margin-bottom: 4rem;
+    margin-top: 1rem;
 }
 
 .secondary-heading h1 {
@@ -177,31 +193,50 @@ main,
     max-width: 1700px;
     margin-right: auto;
     margin-left: auto;
+    padding: 0 15px;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .container-custom {
-        width: 95%;
+        width: 100%;
+        padding: 0 15px;
     }
 
-    .text-muted {
-        font-size: 0.7rem;
-        margin-bottom: 0.5rem;
+    .section-spacing {
+        margin-bottom: 2rem;
+    }
+
+    .headings {
+        padding: 0.5rem;
+    }
+
+    .secondary-heading {
+        margin-bottom: 2rem;
+        margin-top: 0.5rem;
     }
 
     .text-center {
-        margin-bottom: 1rem;
-        line-height: 30px;
+        margin-bottom: 0.5rem;
+        line-height: 1.2;
     }
 
     .text-paragraph {
-        margin-bottom: 1.5rem;
+        margin-bottom: 1rem;
     }
 
     #cluster-map {
-        width: 90%;
+        width: 95%;
         height: 300px;
+        margin-bottom: 1rem;
+    }
+
+    .popular-parks-container {
+        padding: 0.75rem 0;
+    }
+
+    .card {
+        margin-bottom: 1rem;
     }
 }
 
@@ -238,9 +273,9 @@ main,
     border: 1px solid grey;
 }
 
-.popular-park-card img {
+.popular-park-card .lazy-image-container img {
     width: 100%;
-    height: 400px;
+    height: 600px;
     object-fit: cover;
 }
 
@@ -455,8 +490,8 @@ html {
 
 .popular-parks-scroll {
     display: flex;
-    justify-content: space-between; /* Add this line */
-    gap: 20px; /* Add this line */
+    justify-content: space-between;
+    gap: 20px;
     overflow-x: auto;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
@@ -469,10 +504,10 @@ html {
 }
 
 .popular-park-card {
-    flex: 1; /* Change from flex: 0 0 auto to flex: 1 */
-    max-width: calc(50% - 10px); /* Add this line */
-    width: 100%; /* Change from width: 600px to width: 100% */
-    margin-right: 0; /* Remove margin-right */
+    flex: 1;
+    max-width: calc(50% - 10px);
+    width: 100%;
+    margin-right: 0;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -698,4 +733,111 @@ html {
     align-items: center;
     justify-content: center;
     margin-bottom: 2rem;
+}
+
+.image-container {
+    height: 300px;
+}
+
+.image-container img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.carousel-image {
+    max-height: 400px;
+    object-fit: cover;
+}
+
+.map-container {
+    height: 300px;
+}
+
+.review-textarea {
+    max-length: 100;
+}
+
+/* Responsive adjustments for popular parks */
+@media (max-width: 768px) {
+    .popular-parks-scroll {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .popular-park-card {
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .popular-park-card .lazy-image-container img {
+        height: 300px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .navbar-nav {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .navbar-nav .nav-item {
+        margin-bottom: 0.5rem;
+    }
+
+    .navbar-nav .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .navbar-collapse {
+        margin-top: 1rem;
+    }
+
+    .footer {
+        text-align: center;
+    }
+}
+.footer {
+    background-color: #f8f9fa;
+    padding: 20px 0;
+}
+
+.footer h5 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.footer p {
+    color: #444;
+    font-size: 1rem;
+}
+
+.footer ul {
+    padding-left: 0;
+}
+
+.footer ul li {
+    margin-bottom: 10px;
+}
+
+.footer a {
+    color: #6c757d;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: #000;
+}
+
+.footer .list-inline-item {
+    margin-right: 15px;
+}
+
+.footer .list-inline-item:last-child {
+    margin-right: 0;
+}
+
+.footer hr {
+    margin: 20px 0;
 }
