@@ -1,7 +1,9 @@
 <% layout('./layouts/boilerplate')%>
 
-<div class="container login-container">
-    <div class="row">
+<div
+    class="container login-container d-flex align-items-center justify-content-center min-vh-100"
+>
+    <div class="row w-100">
         <div class="col-md-6">
             <div class="login-form">
                 <h1 class="mb-3">
@@ -76,5 +78,10 @@
 
     footer {
         display: none;
+    }
+
+    .login-container {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
     }
 </style>

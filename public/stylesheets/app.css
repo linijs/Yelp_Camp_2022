@@ -605,3 +605,11 @@ main,
         text-align: center;
     }
 }
+.card:hover {
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.btn-danger {
+    width: 100%;
+}

@@ -1,6 +1,7 @@
-<% layout('layouts/boilerplate')%>
-
-<div class="container-fluid vh-100 d-flex justify-content-center">
+<% layout('layouts/boilerplate')%> <% hideFooter = true %>
+<div
+    class="container-fluid vh-100 d-flex justify-content-center align-items-center"
+>
     <div class="row justify-content-center w-100">
         <div class="col-12 col-sm-10 col-md-8 col-lg-6">
             <div class="login-form">
@@ -123,6 +124,18 @@
                         </div>
                     </div>
                     <div class="mb-3">
+                        <label for="image" class="form-label"
+                            >Add New Images</label
+                        >
+                        <input
+                            class="form-control"
+                            type="file"
+                            id="image"
+                            name="image"
+                            multiple
+                        />
+                    </div>
+                    <div class="mb-3">
                         <button class="btn btn-secondary w-100">
                             Update Park
                         </button>
@@ -152,10 +165,6 @@
         box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
     }
 
-    footer {
-        display: none;
-    }
-
     @media (max-height: 800px) {
         .container-fluid {
             align-items: flex-start;
@@ -174,12 +183,4 @@
     }
 </style>
 
-<script>
-    const descriptionTextarea = document.getElementById("description");
-    const charCount = document.getElementById("charCount");
-
-    descriptionTextarea.addEventListener("input", function () {
-        const remainingChars = this.value.length;
-        charCount.textContent = remainingChars;
-    });
-</script>
+<script src="/javascripts/reviewTextarea.js"></script>

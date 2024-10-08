@@ -1,6 +1,8 @@
 <% layout('layouts/boilerplate')%>
 
-<div class="container-fluid vh-100 d-flex justify-content-center">
+<div
+    class="container-fluid vh-100 d-flex justify-content-center align-items-center"
+>
     <div class="row justify-content-center w-100">
         <div class="col-12 col-sm-10 col-md-8 col-lg-6">
             <div class="login-form">
@@ -131,12 +133,4 @@
     }
 </style>
 
-<script>
-    const descriptionTextarea = document.getElementById("description");
-    const charCount = document.getElementById("charCount");
-
-    descriptionTextarea.addEventListener("input", function () {
-        const remainingChars = this.value.length;
-        charCount.textContent = remainingChars;
-    });
-</script>
+<script src="/javascripts/reviewTextarea.js"></script>
