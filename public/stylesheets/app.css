@@ -409,6 +409,7 @@ main,
 
 .navbar {
     transition: background-color 0.3s ease;
+    padding: 1rem 5.7rem;
 }
 
 /* Login styles */
@@ -431,8 +432,9 @@ main,
 }
 
 .terrainly-text {
-    font-size: 1rem;
+    font-size: 1.5rem;
     vertical-align: middle;
+    margin-left: 5px;
 }
 
 .form-header {

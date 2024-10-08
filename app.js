@@ -190,6 +190,7 @@ app.get("/", async (req, res) => {
             currentPage: campgrounds.page,
             pages: campgrounds.totalPages,
             totalDocs: campgrounds.totalDocs,
+            page: "home", // Add this line
         });
     } catch (error) {
         console.error(error);
