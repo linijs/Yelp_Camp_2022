@@ -43,6 +43,7 @@ const CampgroundSchema = new Schema(
                 ref: "Review",
             },
         ],
+        createdAt: { type: Date, default: Date.now },
     },
     opts
 );

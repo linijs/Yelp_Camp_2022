@@ -1,103 +1,185 @@
 <% layout('layouts/boilerplate')%>
-<div class="row">
-    <h1 class="text-center">Edit Campground</h1>
-    <div class="col-md-6 offset-md-3">
-        <form
-            action="/campgrounds/<%=campground._id%>?_method=PUT"
-            method="POST"
-            novalidate
-            class="validated-form"
-            enctype="multipart/form-data"
-        >
-            <div class="mb-3">
-                <label class="form-label" for="title">Title</label>
-                <input
-                    class="form-control"
-                    type="text"
-                    id="title"
-                    name="campground[title]"
-                    value="<%=campground.title %>"
-                    required
-                />
-                <div class="valid-feedback">Looks good!</div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="location">Location</label>
-                <input
-                    class="form-control"
-                    type="text"
-                    id="location"
-                    name="campground[location]"
-                    value="<%=campground.location %>"
-                    required
-                />
-                <div class="valid-feedback">Looks good!</div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="price">Campground Price</label>
-                <div class="input-group">
-                    <span class="input-group-text" id="price-label">€</span>
-                    <input
-                        type="text"
-                        class="form-control"
-                        id="price"
-                        placeholder="0.00"
-                        aria-label="price"
-                        aria-describedby="price-label"
-                        name="campground[price]"
-                        value="<%=campground.price %>"
-                        required
-                    />
-                    <div class="valid-feedback">Looks good!</div>
+
+<div class="container-fluid vh-100 d-flex justify-content-center">
+    <div class="row justify-content-center w-100">
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+            <div class="login-form">
+                <div class="form-header mb-4">
+                    <h1 class="mb-2">
+                        <img
+                            src="/images/Terrainly_logo.png"
+                            alt="Terrainly Logo"
+                            class="logo"
+                            width="30"
+                        />
+                        <span class="terrainly-text">Terrainly</span>
+                    </h1>
+                    <h4 class="fs-5">Edit Park</h4>
                 </div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="description">Description</label>
-                <textarea
-                    class="form-control"
-                    type="text"
-                    id="description"
-                    name="campground[description]"
-                    required
+                <form
+                    action="/campgrounds/<%=campground._id%>?_method=PUT"
+                    method="POST"
+                    novalidate
+                    class="validated-form"
+                    enctype="multipart/form-data"
                 >
+                    <div class="mb-3">
+                        <label class="form-label" for="title">Title</label>
+                        <input
+                            class="form-control"
+                            type="text"
+                            id="title"
+                            name="campground[title]"
+                            value="<%=campground.title %>"
+                            required
+                        />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="location"
+                            >Location</label
+                        >
+                        <input
+                            class="form-control"
+                            type="text"
+                            id="location"
+                            name="campground[location]"
+                            value="<%=campground.location %>"
+                            required
+                        />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="price"
+                            >Park Entrance Fee</label
+                        >
+                        <div class="input-group">
+                            <span class="input-group-text" id="price-label"
+                                >€</span
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="price"
+                                placeholder="0.00"
+                                aria-label="price"
+                                aria-describedby="price-label"
+                                name="campground[price]"
+                                value="<%=campground.price %>"
+                                required
+                            />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="description"
+                            >Description</label
+                        >
+                        <textarea
+                            class="form-control"
+                            type="text"
+                            id="description"
+                            name="campground[description]"
+                            required
+                            maxlength="500"
+                        >
 <%=campground.description%></textarea
-                >
-                <div class="valid-feedback">Looks good!</div>
-            </div>
-            <div class="mb-3">
-                <label for="image" class="form-label">Add Images</label>
-                <input
-                    class="form-control"
-                    type="file"
-                    id="image"
-                    name="image"
-                    multiple
-                />
-            </div>
-            <div class="mb-3">
-                <% campground.images.forEach(function(img, i) { %>
-                <img src="<%=img.thumbnail %>" class="img-thumbnail" alt="" />
-                <div class="form-check-inline">
-                    <input
-                        type="checkbox"
-                        id="image-<%=i%>"
-                        name="deleteImages[]"
-                        value="<%=img.filename%>"
-                    />
+                        >
+                        <div class="form-text" id="descriptionHelp">
+                            Maximum 500 characters.
+                            <span id="charCount"
+                                ><%=campground.description.length%></span
+                            >/500
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Current Images</label>
+                        <div class="row row-cols-1 row-cols-md-2 g-4">
+                            <% campground.images.forEach(function(img, i) { %>
+                            <div class="col">
+                                <div class="card">
+                                    <img
+                                        src="<%=img.thumbnail %>"
+                                        class="card-img-top"
+                                        alt="Park image"
+                                    />
+                                    <div class="card-body">
+                                        <div class="form-check">
+                                            <input
+                                                class="form-check-input"
+                                                type="checkbox"
+                                                id="image-<%=i%>"
+                                                name="deleteImages[]"
+                                                value="<%=img.filename%>"
+                                            />
+                                            <label
+                                                class="form-check-label"
+                                                for="image-<%=i%>"
+                                            >
+                                                Delete this image
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% }) %>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <button class="btn btn-secondary w-100">
+                            Update Park
+                        </button>
+                    </div>
+                </form>
+                <div class="d-grid gap-2 mt-3">
+                    <a
+                        href="/campgrounds/<%= campground._id%>"
+                        class="btn btn-outline-secondary"
+                        >Back To Park</a
+                    >
                 </div>
-                <label for="image-<%=i%>">Delete?</label>
-                <% })%>
             </div>
-            <div class="d-grid gap-2">
-                <button class="btn btn-info">Update Campground</button>
-            </div>
-        </form>
-        <div class="d-grid gap-2 mt-3">
-            <a
-                href="/campgrounds/<%= campground._id%>"
-                class="btn btn-secondary"
-                >Back To Campground</a
-            >
         </div>
     </div>
 </div>
+
+<style>
+    body {
+        overflow-y: auto;
+    }
+
+    .login-form {
+        background-color: #f8f9fa;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    }
+
+    footer {
+        display: none;
+    }
+
+    @media (max-height: 800px) {
+        .container-fluid {
+            align-items: flex-start;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+    }
+
+    .form-check-input:checked + .form-check-label {
+        color: #6c757d;
+    }
+
+    .card-img-top {
+        height: 200px;
+        object-fit: cover;
+    }
+</style>
+
+<script>
+    const descriptionTextarea = document.getElementById("description");
+    const charCount = document.getElementById("charCount");
+
+    descriptionTextarea.addEventListener("input", function () {
+        const remainingChars = this.value.length;
+        charCount.textContent = remainingChars;
+    });
+</script>

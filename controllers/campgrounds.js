@@ -12,10 +12,19 @@ module.exports.index = async (req, res) => {
         const options = {
             page: page,
             limit: limit,
-            sort: { _id: -1 }, // Sort by newest first
+            sort: { createdAt: -1 }, // Sort by newest first
+            collation: { locale: "en" }, // Ensure consistent sorting across different locales
         };
 
         const campgrounds = await Campground.paginate({}, options);
+
+        // Add a random factor for campgrounds created at the same time
+        campgrounds.docs.sort((a, b) => {
+            if (a.createdAt.getTime() === b.createdAt.getTime()) {
+                return 0.5 - Math.random();
+            }
+            return b.createdAt - a.createdAt;
+        });
 
         // Calculate the total number of pages
         const totalPages = campgrounds.totalPages;

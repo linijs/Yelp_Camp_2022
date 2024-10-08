@@ -32,14 +32,13 @@
             >
                 <ul class="navbar-nav nav-masthead align-items-baseline">
                     <li class="nav-item me-2">
-                        <% if (currentUser) { %> <% if (typeof isIndexPage !==
-                        'undefined' && isIndexPage) { %>
+                        <% if (currentUser) { %>
                         <a
                             class="nav-link btn btn-secondary text-white px-3 py-2"
                             href="/campgrounds/new"
                             >Create Park</a
                         >
-                        <% } %> <% } else { %>
+                        <% } else { %>
                         <a
                             class="nav-link btn btn-secondary text-white px-3 py-2"
                             href="/login"
