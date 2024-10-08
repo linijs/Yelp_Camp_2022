@@ -29,15 +29,10 @@
             crossorigin
         />
         <link rel="stylesheet" href="/stylesheets/app.css" />
-        <style>
-            body {
-                padding-top: 56px;
-            }
-        </style>
     </head>
     <body class="d-flex flex-column vh-100">
         <header class="fixed-top"><%- include('../partials/navbar')%></header>
-        <main class="mt-5"><%- include('../partials/flash')%> <%- body %></main>
+        <main><%- include('../partials/flash')%> <%- body %></main>
         <% if (typeof hideFooter === 'undefined' || !hideFooter) { %>
         <footer class="footer mt-auto py-3 bg-light">
             <div class="container">
@@ -74,5 +69,6 @@
         <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
         <script src="/javascripts/validateForms.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+        <script src="/javascripts/navbarScroll.js"></script>
     </body>
 </html>

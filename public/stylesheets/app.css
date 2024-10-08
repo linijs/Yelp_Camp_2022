@@ -18,7 +18,6 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    padding-top: 56px;
     overflow-x: hidden;
 }
 
@@ -430,14 +429,10 @@ html {
     transform: none !important;
 }
 
-.static-nav main {
-    padding-top: 56px;
-}
-
 /* Hero section styles */
 #hero-section {
     height: 100vh;
-    margin-top: -56px;
+
     position: relative;
     overflow: hidden;
     display: flex;
@@ -672,14 +667,9 @@ html {
     transform: none !important;
 }
 
-.static-nav main {
-    padding-top: 56px;
-}
-
 /* Hero section styles */
 #hero-section {
     height: 100vh;
-    margin-top: -56px;
     position: relative;
     overflow: hidden;
     display: flex;
@@ -840,4 +830,12 @@ html {
 
 .footer hr {
     margin: 20px 0;
+}
+
+.navbar-scrolled {
+    background-color: white !important;
+    transition: background-color 200ms linear;
+}
+.navbar {
+    transition: background-color 0.3s ease;
 }
