@@ -10,7 +10,7 @@
             type="image/x-icon"
             sizes="16x16"
         />
-        <title>YelpCamp</title>
+        <title>Terrainly</title>
         <link
             rel="stylesheet"
             href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
@@ -26,31 +26,56 @@
     </head>
 
     <body class="d-flex flex-column text-center text-white">
-        <% layout('./layouts/boilerplate')%>
-        <main class="mt-0" data-scroll-container>
-            <section
-                id="hero-section"
-                class="animate-hero"
-                style="visibility: hidden"
-            >
-                <video id="bg-video" autoplay loop muted>
-                    <source
-                        src="https://res.cloudinary.com/drvf1bwps/video/upload/v1728330072/YelpCamp/Video/terrainly_video_crsg0z.webm"
-                        type="video/webm"
-                    />
-                    Your browser does not support the video tag.
-                </video>
-                <div class="bottom-left-content animate-content">
-                    <h1>Discover Nature's Best Parks.</h1>
+        <% layout('layouts/boilerplate')%>
+
+        <div data-scroll-container>
+            <section data-scroll-section>
+                <div
+                    id="hero-section"
+                    class="animate-hero"
+                    style="visibility: hidden"
+                >
+                    <video id="bg-video" autoplay loop muted>
+                        <source
+                            src="https://res.cloudinary.com/drvf1bwps/video/upload/v1728330072/YelpCamp/Video/terrainly_video_crsg0z.webm"
+                            type="video/webm"
+                        />
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="bottom-left-content animate-content">
+                        <h1>Discover Nature's Best Parks.</h1>
+                    </div>
                 </div>
             </section>
-            <%- include('./partials/_hero') %> <%- include('./partials/_map') %>
-            <%- include('./partials/_featured_parks') %> <%-
-            include('./partials/_add_park_steps') %> <%-
-            include('./partials/_all_parks') %> <%-
-            include('./partials/_add_park_cta') %> <%-
-            include('./partials/footer') %>
-        </main>
+
+            <section data-scroll-section>
+                <%- include('./partials/_hero') %>
+            </section>
+
+            <section data-scroll-section>
+                <%- include('./partials/_map') %>
+            </section>
+
+            <section data-scroll-section>
+                <%- include('./partials/_featured_parks') %>
+            </section>
+
+            <section data-scroll-section>
+                <%- include('./partials/_add_park_steps') %>
+            </section>
+
+            <section data-scroll-section>
+                <%- include('./partials/_all_parks') %>
+            </section>
+
+            <section data-scroll-section>
+                <%- include('./partials/_add_park_cta') %>
+            </section>
+
+            <section data-scroll-section>
+                <%- include('./partials/footer') %>
+            </section>
+        </div>
 
         <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
@@ -99,6 +124,5 @@
         <script src="/javascripts/lazyLoading.js"></script>
         <script src="/javascripts/popularParksSlider.js"></script>
         <script src="/javascripts/clusterMap.js"></script>
-        <script src="/javascripts/locomotiveScroll.js"></script>
     </body>
 </html>

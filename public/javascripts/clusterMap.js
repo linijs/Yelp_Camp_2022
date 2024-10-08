@@ -145,6 +145,8 @@ function initMap() {
         map.on("mouseleave", "clusters", () => {
             map.getCanvas().style.cursor = "";
         });
+
+        document.getElementById("cluster-map").style.opacity = "1";
     });
 }
 
@@ -192,8 +194,13 @@ function loadMapboxScript() {
         link.rel = "stylesheet";
         document.head.appendChild(link);
 
-        // Initialize GSAP animation after Mapbox is loaded
-        setupMapAnimation();
+        const style = document.createElement("style");
+        style.textContent = `
+            #cluster-map {
+                opacity: 0;
+            }
+        `;
+        document.head.appendChild(style);
     };
     document.head.appendChild(script);
 }
@@ -230,6 +237,7 @@ function setupMapAnimation() {
                     start: "top bottom-=100",
                     end: "bottom top+=100",
                     toggleActions: "play none none reverse",
+                    scroller: document.body,
                 },
             }
         );

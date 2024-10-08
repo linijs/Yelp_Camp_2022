@@ -1,20 +1,8 @@
 <div
-    class="container-custom section-spacing mt-2"
+    class="container-custom section-spacing mt-2 featured-parks-section"
     data-scroll
     data-scroll-speed="1"
 >
-    <div class="secondary-heading">
-        <div class="mb-4">
-            <h1 data-animate-heading>Featured Parks and</h1>
-            <h1 data-animate-heading>Reserves</h1>
-        </div>
-        <p>
-            From Gauja's ancient forests to Slītere's coastal dunes,
-            <br />
-            embark on your next Latvian adventure with our expert picks.
-        </p>
-    </div>
-
     <div class="popular-parks-container">
         <div class="popular-parks-scroll" id="popularParks">
             <% if (campgrounds && campgrounds.docs && campgrounds.docs.length >
@@ -25,9 +13,9 @@
                 class="popular-park-card"
                 style="opacity: 1; transform: translateY(0)"
             >
-                <div class="lazy-image-container">
+                <div class="lazy-image-container parallax-container">
                     <div
-                        class="lazy-image-placeholder"
+                        class="lazy-image-placeholder parallax-image"
                         style="
                             background-image: url('<%= park.images && park.images.length ? park.images[0].url : 'https://res.cloudinary.com/drvf1bwps/image/upload/v1650983178/YelpCamp/yxcc5gwoe16lk7kapphq.jpg' %>');
                         "
@@ -36,7 +24,7 @@
                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
                         data-src="<%= park.images && park.images.length ? park.images[0].url : 'https://res.cloudinary.com/drvf1bwps/image/upload/v1650983178/YelpCamp/yxcc5gwoe16lk7kapphq.jpg' %>"
                         alt="<%= park.title %>"
-                        class="lazy-image loading"
+                        class="lazy-image loading parallax-image"
                     />
                 </div>
                 <div class="popular-park-info">
@@ -55,3 +43,27 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const parallaxContainers = document.querySelectorAll(
+            ".parallax-container"
+        );
+
+        parallaxContainers.forEach((container) => {
+            const image = container.querySelector(".parallax-image");
+
+            gsap.to(image, {
+                y: "20%",
+                ease: "none",
+                scrollTrigger: {
+                    trigger: container,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true,
+                    scroller: "[data-scroll-container]",
+                },
+            });
+        });
+    });
+</script>
