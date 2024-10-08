@@ -29,19 +29,28 @@ nav {
     font-family: var(--font-family);
 }
 
-/* Map styles */
-#cluster-map {
-    width: 100%;
-    height: 500px;
-    max-width: 1670px;
-    height: 800px;
-    margin: 0 auto;
-    border-radius: 10px;
+html {
+    scroll-behavior: smooth;
 }
 
-#map {
-    width: 100%;
-    height: 400px;
+.no-scroll {
+    overflow: hidden;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+/* Layout styles */
+.container-custom {
+    width: 90%;
+    max-width: 1700px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 0 15px;
+}
+
+.section-spacing {
+    margin-bottom: 6rem;
 }
 
 /* Button styles */
@@ -99,32 +108,30 @@ nav {
     color: var(--secondary-color);
 }
 
-/* Bottom left content styles */
-.bottom-left-content {
-    position: absolute;
-    bottom: 10%;
-    left: 5%;
-    text-align: left;
-    max-width: 90%;
-    color: white;
-}
-
-@media (max-width: 768px) {
-    .bottom-left-content {
-        left: 50%;
-        transform: translateX(-50%);
-        width: 90%;
-    }
-}
-
-/* Video background and content styles */
-main,
-.content {
-    position: relative;
+/* Map styles */
+#cluster-map {
     width: 100%;
-    min-height: calc(100vh - 25vh);
-    overflow: visible;
-    flex: 1 0 auto;
+    height: 500px;
+    max-width: 1670px;
+    height: 800px;
+    margin: 0 auto;
+    border-radius: 10px;
+}
+
+#map {
+    width: 100%;
+    height: 400px;
+}
+
+/* Hero section styles */
+#hero-section {
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 6rem;
 }
 
 #bg-video {
@@ -139,11 +146,29 @@ main,
     transition: opacity 0.5s ease-in-out;
 }
 
-.no-scroll {
-    overflow: hidden;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
+.hero-content {
+    text-align: center;
+    color: white;
+    z-index: 1;
+}
+
+/* Content styles */
+main,
+.content {
+    position: relative;
+    width: 100%;
+    min-height: calc(100vh - 25vh);
+    overflow: visible;
+    flex: 1 0 auto;
+}
+
+.bottom-left-content {
+    position: absolute;
+    bottom: 10%;
+    left: 5%;
+    text-align: left;
+    max-width: 90%;
+    color: white;
 }
 
 .text-muted {
@@ -186,59 +211,7 @@ main,
     font-size: clamp(2rem, 5vw, 4rem);
 }
 
-/* Custom container */
-.container-custom {
-    width: 90%;
-    max-width: 1700px;
-    margin-right: auto;
-    margin-left: auto;
-    padding: 0 15px;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .container-custom {
-        width: 100%;
-        padding: 0 15px;
-    }
-
-    .section-spacing {
-        margin-bottom: 2rem;
-    }
-
-    .headings {
-        padding: 0.5rem;
-    }
-
-    .secondary-heading {
-        margin-bottom: 2rem;
-        margin-top: 0.5rem;
-    }
-
-    .text-center {
-        margin-bottom: 0.5rem;
-        line-height: 1.2;
-    }
-
-    .text-paragraph {
-        margin-bottom: 1rem;
-    }
-
-    #cluster-map {
-        width: 95%;
-        height: 300px;
-        margin-bottom: 1rem;
-    }
-
-    .popular-parks-container {
-        padding: 0.75rem 0;
-    }
-
-    .card {
-        margin-bottom: 1rem;
-    }
-}
-
+/* Popular parks styles */
 .popular-parks-container {
     width: 100%;
     overflow: hidden;
@@ -296,27 +269,27 @@ main,
     cursor: -webkit-grabbing;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
-/* Styles for cards */
+/* Card styles */
 .card {
     transition: transform 0.2s;
 }
+
 .card:hover {
     transform: translateY(-5px);
 }
+
 .card-img-container {
     height: 250px;
     overflow: hidden;
     position: relative;
 }
+
 .card-img-top {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
+
 .card-body {
     display: flex;
     flex-direction: column;
@@ -326,28 +299,31 @@ html {
     flex-grow: 1;
 }
 
+/* Badge styles */
 .badge {
     font-size: 0.9rem;
     background-color: #000;
     color: #fff;
 }
 
-/* Styles for pagination */
+/* Pagination styles */
 .pagination .page-link {
     color: black;
 }
+
 .pagination .page-item.active .page-link {
     background-color: black;
     border-color: black;
     color: white;
 }
+
 .pagination .page-link:hover {
     color: #333;
     background-color: #e9ecef;
     border-color: #dee2e6;
 }
 
-/* Styles for lazy loading images */
+/* Lazy loading image styles */
 .lazy-image-container {
     position: relative;
     overflow: hidden;
@@ -375,17 +351,13 @@ html {
     transition: opacity 0.5s;
 }
 
-.section-spacing {
-    margin-bottom: 6rem;
-}
-
 /* Mapbox custom popup styles */
 .custom-popup {
     font-family: "Inter", sans-serif;
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     padding: 0;
-    max-width: 300px;
+    max-width: 400px;
 }
 
 .custom-popup .mapboxgl-popup-content {
@@ -397,7 +369,7 @@ html {
 .custom-popup .mapboxgl-popup-close-button {
     top: 10px;
     right: 10px;
-    font-size: 20px;
+    font-size: 25px;
     color: #333;
     background: none;
     border: none;
@@ -421,6 +393,7 @@ html {
     border-bottom-color: rgba(255, 255, 255, 0.95);
 }
 
+/* Navigation styles */
 .static-nav header {
     position: fixed;
     top: 0;
@@ -429,271 +402,16 @@ html {
     transform: none !important;
 }
 
-/* Hero section styles */
-#hero-section {
-    height: 100vh;
-
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 6rem;
+.navbar-scrolled {
+    background-color: white !important;
+    transition: background-color 200ms linear;
 }
 
-#bg-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
+.navbar {
+    transition: background-color 0.3s ease;
 }
 
-.hero-content {
-    text-align: center;
-    color: white;
-    z-index: 1;
-}
-
-.no-scroll {
-    overflow: hidden;
-}
-
-/* Responsive adjustments */
-@media (max-width: 991.98px) {
-    .navbar-nav {
-        margin-top: 1rem;
-    }
-
-    .navbar-nav .nav-item {
-        margin-bottom: 0.5rem;
-    }
-
-    .navbar-nav .btn {
-        width: 100%;
-        text-align: center;
-    }
-}
-
-.popular-parks-container {
-    width: 100%;
-    overflow: hidden;
-    padding: 1.5rem 0;
-}
-
-.popular-parks-scroll {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-
-.popular-parks-scroll::-webkit-scrollbar {
-    display: none;
-}
-
-.popular-park-card {
-    flex: 1;
-    max-width: calc(50% - 10px);
-    width: 100%;
-    margin-right: 0;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    border: 1px solid grey;
-}
-
-.popular-park-card img {
-    width: 100%;
-    height: 600px;
-    object-fit: cover;
-}
-
-.popular-park-info {
-    padding: 15px;
-}
-
-.popular-park-info h3 {
-    margin-bottom: 10px;
-}
-
-.popular-park-info p {
-    color: #666;
-    margin-bottom: 15px;
-}
-
-.popular-parks-scroll.active {
-    cursor: grabbing;
-    cursor: -webkit-grabbing;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-/* Styles for cards */
-.card {
-    transition: transform 0.2s;
-}
-.card:hover {
-    transform: translateY(-5px);
-}
-.card-img-container {
-    height: 250px;
-    overflow: hidden;
-    position: relative;
-}
-.card-img-top {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-.card-body {
-    display: flex;
-    flex-direction: column;
-}
-
-.card-text {
-    flex-grow: 1;
-}
-
-.badge {
-    font-size: 0.9rem;
-    background-color: #000;
-    color: #fff;
-}
-
-/* Styles for pagination */
-.pagination .page-link {
-    color: black;
-}
-.pagination .page-item.active .page-link {
-    background-color: black;
-    border-color: black;
-    color: white;
-}
-.pagination .page-link:hover {
-    color: #333;
-    background-color: #e9ecef;
-    border-color: #dee2e6;
-}
-
-/* Styles for lazy loading images */
-.lazy-image-container {
-    position: relative;
-    overflow: hidden;
-}
-
-.lazy-image {
-    transition: opacity 0.5s;
-    opacity: 0;
-}
-
-.lazy-image.loaded {
-    opacity: 1;
-}
-
-.lazy-image-placeholder {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    filter: blur(10px);
-    transform: scale(1.1);
-    transition: opacity 0.5s;
-}
-
-.section-spacing {
-    margin-bottom: 6rem;
-}
-
-/* Mapbox custom popup styles */
-.custom-popup {
-    font-family: "Inter", sans-serif;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    padding: 0;
-    max-width: 300px;
-}
-
-.custom-popup .mapboxgl-popup-content {
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.95);
-    border-radius: 8px;
-}
-
-.custom-popup .mapboxgl-popup-close-button {
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
-    color: #333;
-    background: none;
-    border: none;
-}
-
-.custom-popup h3 {
-    margin: 0 0 10px;
-    font-size: 18px;
-    font-weight: 600;
-    color: #333;
-}
-
-.custom-popup p {
-    margin: 0;
-    font-size: 14px;
-    color: #666;
-}
-
-.custom-popup .mapboxgl-popup-tip {
-    border-top-color: rgba(255, 255, 255, 0.95);
-    border-bottom-color: rgba(255, 255, 255, 0.95);
-}
-
-.static-nav header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-    transform: none !important;
-}
-
-/* Hero section styles */
-#hero-section {
-    height: 100vh;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 6rem;
-}
-
-#bg-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
-}
-
-.hero-content {
-    text-align: center;
-    color: white;
-    z-index: 1;
-}
-
+/* Login styles */
 .login-container {
     max-width: 900px;
     margin: 50px auto;
@@ -725,6 +443,7 @@ html {
     margin-bottom: 2rem;
 }
 
+/* Image styles */
 .image-container {
     height: 300px;
 }
@@ -740,54 +459,17 @@ html {
     object-fit: cover;
 }
 
+/* Map container */
 .map-container {
     height: 300px;
 }
 
+/* Review textarea */
 .review-textarea {
     max-length: 100;
 }
 
-/* Responsive adjustments for popular parks */
-@media (max-width: 768px) {
-    .popular-parks-scroll {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .popular-park-card {
-        max-width: 100%;
-        margin-bottom: 20px;
-    }
-
-    .popular-park-card .lazy-image-container img {
-        height: 300px;
-    }
-}
-
-@media (max-width: 991.98px) {
-    .navbar-nav {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .navbar-nav .nav-item {
-        margin-bottom: 0.5rem;
-    }
-
-    .navbar-nav .btn {
-        width: 100%;
-        text-align: center;
-    }
-
-    .navbar-collapse {
-        margin-top: 1rem;
-    }
-
-    .footer {
-        text-align: center;
-    }
-}
+/* Footer styles */
 .footer {
     background-color: #f8f9fa;
     padding: 20px 0;
@@ -832,10 +514,94 @@ html {
     margin: 20px 0;
 }
 
-.navbar-scrolled {
-    background-color: white !important;
-    transition: background-color 200ms linear;
+/* Responsive styles */
+@media (max-width: 768px) {
+    .container-custom {
+        width: 100%;
+        padding: 0 15px;
+    }
+
+    .section-spacing {
+        margin-bottom: 2rem;
+    }
+
+    .headings {
+        padding: 0.5rem;
+    }
+
+    .secondary-heading {
+        margin-bottom: 2rem;
+        margin-top: 0.5rem;
+    }
+
+    .text-center {
+        margin-bottom: 0.5rem;
+        line-height: 1.2;
+    }
+
+    .text-paragraph {
+        margin-bottom: 1rem;
+    }
+
+    #cluster-map {
+        width: 95%;
+        height: 300px;
+        margin-bottom: 1rem;
+    }
+
+    .popular-parks-container {
+        padding: 0.75rem 0;
+    }
+
+    .card {
+        margin-bottom: 1rem;
+    }
+
+    .bottom-left-content {
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+    }
+
+    .popular-parks-scroll {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .popular-park-card {
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .popular-park-card .lazy-image-container img {
+        height: 300px;
+    }
 }
-.navbar {
-    transition: background-color 0.3s ease;
+
+@media (max-width: 991.98px) {
+    .navbar-nav {
+        margin-top: 1rem;
+    }
+
+    .navbar-nav .nav-item {
+        margin-bottom: 0.5rem;
+    }
+
+    .navbar-nav .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .navbar-nav {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .navbar-collapse {
+        margin-top: 1rem;
+    }
+
+    .footer {
+        text-align: center;
+    }
 }
