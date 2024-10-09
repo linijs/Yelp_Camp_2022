@@ -165,7 +165,7 @@ app.get("/", async (req, res) => {
                 page,
                 limit,
                 sort: "-createdAt",
-                select: "title location description images geometry price", // Added price
+                select: "title location description images geometry price",
             }
         );
 
@@ -190,7 +190,7 @@ app.get("/", async (req, res) => {
             currentPage: campgrounds.page,
             pages: campgrounds.totalPages,
             totalDocs: campgrounds.totalDocs,
-            page: "home", // Add this line
+            page: "home",
         });
     } catch (error) {
         console.error(error);
