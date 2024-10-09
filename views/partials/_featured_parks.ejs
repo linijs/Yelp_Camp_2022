@@ -43,27 +43,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const parallaxContainers = document.querySelectorAll(
-            ".parallax-container"
-        );
-
-        parallaxContainers.forEach((container) => {
-            const image = container.querySelector(".parallax-image");
-
-            gsap.to(image, {
-                y: "20%",
-                ease: "none",
-                scrollTrigger: {
-                    trigger: container,
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: true,
-                    scroller: "[data-scroll-container]",
-                },
-            });
-        });
-    });
-</script>

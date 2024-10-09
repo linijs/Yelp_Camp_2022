@@ -213,4 +213,4 @@ app.listen(port, () => {
     console.log(`Serving at http://localhost:${port}`);
 });
 
-app.get("/public/images/favicon.ico", (req, res) => res.status(204));
+app.get("/public/images/favicon.png", (req, res) => res.status(204));

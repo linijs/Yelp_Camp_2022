@@ -2,32 +2,12 @@
     <div class="headings">
         <span class="text-muted">CONTRIBUTE</span>
         <h2 class="text-center" data-animate-heading>
-            Share Your Park Discovery
+            Share Your Park Experience
         </h2>
         <div class="text-center mt-3">
-            <a
-                href="/campgrounds/new"
-                class="btn btn-secondary btn-lg gsap-reveal"
+            <a href="/campgrounds/new" class="btn btn-secondary btn-lg"
                 >Add New Park</a
             >
         </div>
     </div>
 </div>
-
-<script>
-    gsap.registerPlugin(ScrollTrigger);
-
-    gsap.utils.toArray(".gsap-reveal").forEach((element) => {
-        gsap.from(element, {
-            scrollTrigger: {
-                trigger: element,
-                start: "top 80%",
-                toggleActions: "play none none reverse",
-            },
-            opacity: 0,
-            y: 50,
-            duration: 1,
-            ease: "power3.out",
-        });
-    });
-</script>

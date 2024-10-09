@@ -19,136 +19,161 @@ function initMap() {
     // Check if mapCampgrounds data is available
     if (typeof mapCampgrounds === "undefined" || !mapCampgrounds) {
         console.error("Map Campgrounds data is not available");
+        showMapError();
         return;
     }
 
     mapboxgl.accessToken = mapToken;
 
-    const map = new mapboxgl.Map({
-        container: "cluster-map",
-        style: "mapbox://styles/mapbox/dark-v10",
-        center: [24.6032, 56.8796],
-        zoom: 7,
-    });
-
-    map.addControl(new mapboxgl.NavigationControl());
-
-    map.on("load", () => {
-        // Check if mapCampgrounds data is available
-        if (typeof mapCampgrounds === "undefined" || !mapCampgrounds) {
-            console.error("Map Campgrounds data is not available");
-            return;
-        }
-
-        map.addSource("campgrounds", {
-            type: "geojson",
-            data: mapCampgrounds,
-            cluster: true,
-            clusterMaxZoom: 14,
-            clusterRadius: 75,
+    try {
+        const map = new mapboxgl.Map({
+            container: "cluster-map",
+            style: "mapbox://styles/mapbox/dark-v10",
+            center: [24.6032, 56.8796],
+            zoom: 7,
         });
 
-        map.addLayer({
-            id: "clusters",
-            type: "circle",
-            source: "campgrounds",
-            filter: ["has", "point_count"],
-            paint: {
-                "circle-color": [
-                    "step",
-                    ["get", "point_count"],
-                    "#67b99a",
-                    20,
-                    "#469d89",
-                    50,
-                    "#248277",
-                ],
-                "circle-radius": [
-                    "step",
-                    ["get", "point_count"],
-                    20,
-                    20,
-                    30,
-                    50,
-                    40,
-                ],
-            },
-        });
+        // Set willReadFrequently attribute on the canvas
+        const canvas = map.getCanvas();
+        canvas.setAttribute("willReadFrequently", "true");
 
-        map.addLayer({
-            id: "cluster-count",
-            type: "symbol",
-            source: "campgrounds",
-            filter: ["has", "point_count"],
-            layout: {
-                "text-field": "{point_count_abbreviated}",
-                "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
-                "text-size": 12,
-            },
-        });
+        map.addControl(new mapboxgl.NavigationControl());
 
-        map.addLayer({
-            id: "unclustered-point",
-            type: "circle",
-            source: "campgrounds",
-            filter: ["!", ["has", "point_count"]],
-            paint: {
-                "circle-color": "#11b4da",
-                "circle-radius": 10,
-                "circle-stroke-width": 1,
-                "circle-stroke-color": "#fff",
-            },
-        });
-
-        map.on("click", "clusters", (e) => {
-            const features = map.queryRenderedFeatures(e.point, {
-                layers: ["clusters"],
-            });
-            const clusterId = features[0].properties.cluster_id;
-            map.getSource("campgrounds").getClusterExpansionZoom(
-                clusterId,
-                (err, zoom) => {
-                    if (err) return;
-
-                    map.easeTo({
-                        center: features[0].geometry.coordinates,
-                        zoom: zoom,
-                    });
-                }
-            );
-        });
-
-        map.on("click", "unclustered-point", (e) => {
-            const { id, title, location, price } = e.features[0].properties;
-            const coordinates = e.features[0].geometry.coordinates.slice();
-
-            while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-                coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        map.on("load", () => {
+            // Check if mapCampgrounds data is available
+            if (typeof mapCampgrounds === "undefined" || !mapCampgrounds) {
+                console.error("Map Campgrounds data is not available");
+                return;
             }
 
-            new mapboxgl.Popup()
-                .setLngLat(coordinates)
-                .setHTML(
+            map.addSource("campgrounds", {
+                type: "geojson",
+                data: mapCampgrounds,
+                cluster: true,
+                clusterMaxZoom: 14,
+                clusterRadius: 75,
+            });
+
+            map.addLayer({
+                id: "clusters",
+                type: "circle",
+                source: "campgrounds",
+                filter: ["has", "point_count"],
+                paint: {
+                    "circle-color": [
+                        "step",
+                        ["get", "point_count"],
+                        "#67b99a",
+                        20,
+                        "#469d89",
+                        50,
+                        "#248277",
+                    ],
+                    "circle-radius": [
+                        "step",
+                        ["get", "point_count"],
+                        20,
+                        20,
+                        30,
+                        50,
+                        40,
+                    ],
+                },
+            });
+
+            map.addLayer({
+                id: "cluster-count",
+                type: "symbol",
+                source: "campgrounds",
+                filter: ["has", "point_count"],
+                layout: {
+                    "text-field": "{point_count_abbreviated}",
+                    "text-font": [
+                        "DIN Offc Pro Medium",
+                        "Arial Unicode MS Bold",
+                    ],
+                    "text-size": 12,
+                },
+            });
+
+            map.addLayer({
+                id: "unclustered-point",
+                type: "circle",
+                source: "campgrounds",
+                filter: ["!", ["has", "point_count"]],
+                paint: {
+                    "circle-color": "#11b4da",
+                    "circle-radius": 10,
+                    "circle-stroke-width": 1,
+                    "circle-stroke-color": "#fff",
+                },
+            });
+
+            map.on("click", "clusters", (e) => {
+                const features = map.queryRenderedFeatures(e.point, {
+                    layers: ["clusters"],
+                });
+                const clusterId = features[0].properties.cluster_id;
+                map.getSource("campgrounds").getClusterExpansionZoom(
+                    clusterId,
+                    (err, zoom) => {
+                        if (err) return;
+
+                        map.easeTo({
+                            center: features[0].geometry.coordinates,
+                            zoom: zoom,
+                        });
+                    }
+                );
+            });
+
+            map.on("click", "unclustered-point", (e) => {
+                const { id, title, location, price } = e.features[0].properties;
+                const coordinates = e.features[0].geometry.coordinates.slice();
+
+                while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                    coordinates[0] +=
+                        e.lngLat.lng > coordinates[0] ? 360 : -360;
+                }
+
+                new mapboxgl.Popup()
+                    .setLngLat(coordinates)
+                    .setHTML(
+                        `
+                        <h5>${title}</h5>
+                        <p>${location}</p>
+                        <p>€ ${price}/night</p>
+                        <a href="/campgrounds/${id}" class="btn btn-secondary">View Park</a>
                     `
-                    <h5>${title}</h5>
-                    <p>${location}</p>
-                    <p>€ ${price}/night</p>
-                    <a href="/campgrounds/${id}" class="btn btn-secondary">View Park</a>
-                `
-                )
-                .addTo(map);
+                    )
+                    .addTo(map);
+            });
+
+            map.on("mouseenter", "clusters", () => {
+                map.getCanvas().style.cursor = "pointer";
+            });
+            map.on("mouseleave", "clusters", () => {
+                map.getCanvas().style.cursor = "";
+            });
+
+            document.getElementById("cluster-map").style.opacity = "1";
         });
 
-        map.on("mouseenter", "clusters", () => {
-            map.getCanvas().style.cursor = "pointer";
-        });
-        map.on("mouseleave", "clusters", () => {
-            map.getCanvas().style.cursor = "";
-        });
-
-        document.getElementById("cluster-map").style.opacity = "1";
-    });
+        // Add your existing map event listeners and other logic here
+        // ...
+    } catch (error) {
+        console.error("Error initializing map:", error);
+        showMapError();
+    }
 }
+
+function showMapError() {
+    document.getElementById("cluster-map").style.display = "none";
+    document.getElementById("map-error").classList.remove("d-none");
+}
+
+// Call initMap when the DOM is fully loaded
+document.addEventListener("DOMContentLoaded", initMap);
 
 function isInViewport(element) {
     const rect = element.getBoundingClientRect();
@@ -172,17 +197,6 @@ async function loadMapOnScroll() {
 }
 
 window.addEventListener("scroll", loadMapOnScroll);
-
-document.addEventListener("DOMContentLoaded", async function () {
-    if (document.getElementById("cluster-map")) {
-        try {
-            await loadMapData();
-            initMap();
-        } catch (error) {
-            console.error("Failed to load map data:", error);
-        }
-    }
-});
 
 function loadMapboxScript() {
     const script = document.createElement("script");

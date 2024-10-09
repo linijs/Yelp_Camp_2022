@@ -1,10 +1,8 @@
 <nav
-    class="navbar sticky-top navbar-expand-lg navbar-dark bg-transparent mb-auto w-100"
+    class="navbar sticky-top navbar-expand-lg navbar-light bg-white mb-auto w-100"
     id="mainNavbar"
 >
     <div class="container-fluid">
-        <% const isHomePage = (typeof page !== 'undefined' && page === 'home');
-        %>
         <a
             href="/"
             class="navbar-brand text-decoration-none d-flex align-items-center"
@@ -15,11 +13,7 @@
                 class="logo"
                 width="30"
             />
-            <h3
-                class="mb-0 terrainly-text <%= isHomePage ? 'text-white' : 'text-dark' %>"
-            >
-                Terrainly
-            </h3>
+            <h3 class="mb-0 terrainly-text text-dark">Terrainly</h3>
         </a>
         <button
             class="navbar-toggler"

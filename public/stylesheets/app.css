@@ -53,6 +53,10 @@ html {
     margin-bottom: 6rem;
 }
 
+.section-spacing-small {
+    margin-bottom: 2rem;
+}
+
 /* Button styles */
 .btn {
     padding: var(--padding-button);
@@ -165,7 +169,7 @@ main,
 .bottom-left-content {
     position: absolute;
     bottom: 5%;
-    left: 5%;
+    left: 8%;
     text-align: left;
     max-width: 90%;
     color: white;
@@ -403,17 +407,43 @@ main,
     top: 0;
     width: 100%;
     z-index: 1000;
-    transform: none !important;
-}
-
-.navbar-scrolled {
-    background-color: white !important;
-    transition: background-color 200ms linear;
+    transform: none;
 }
 
 .navbar {
-    transition: background-color 0.3s ease;
-    padding: 1rem 5.7rem;
+    transition: none;
+    padding: 1rem 6.5rem;
+    /* background-color: transparent; */
+}
+
+/*.navbar-scrolled {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+} */
+
+.navbar-scrolled {
+    background-color: white !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-scrolled .navbar-brand,
+.navbar-scrolled .nav-link {
+    color: #333 !important;
+}
+
+.navbar-scrolled .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: white !important;
+}
+
+.navbar-scrolled .btn-outline-dark {
+    color: #333 !important;
+    border-color: #333;
+}
+
+.navbar-scrolled .btn-outline-dark:hover {
+    background-color: #333;
+    color: white !important;
 }
 
 /* Login styles */
@@ -439,6 +469,7 @@ main,
     font-size: 1.5rem;
     vertical-align: middle;
     margin-left: 5px;
+    color: black !important;
 }
 
 .form-header {
@@ -564,7 +595,6 @@ main,
     }
 
     .bottom-left-content {
-        left: 50%;
         transform: translateX(-50%);
         width: 90%;
     }
@@ -586,7 +616,7 @@ main,
 
 @media (max-width: 991.98px) {
     .navbar {
-        padding: 1rem 0re;
+        padding: 1rem 0;
     }
 
     .navbar-nav {
