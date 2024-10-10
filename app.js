@@ -27,13 +27,12 @@ mongoose.set("strictQuery", false);
 
 const MongoStore = require("connect-mongo");
 
-const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/yelp-camp";
+const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/test";
 
 mongoose
     .connect(dbUrl, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        serverSelectionTimeoutMS: 5000, // Increase the timeout to 5 seconds
+        serverSelectionTimeoutMS: 5000,
+        tls: true,
     })
     .then(() => {
         console.log(`Connected to database: ${mongoose.connection.name}`);

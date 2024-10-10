@@ -24,8 +24,6 @@ const options = {
 mongoose.set("strictQuery", false);
 mongoose
     .connect(dbUrl, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
         serverSelectionTimeoutMS: 10000,
     })
     .then(() => {
@@ -178,7 +176,7 @@ const seedDB = async () => {
 
             const camp = new Campground({
                 //YOUR USER ID
-                author: "63c9535b1b3d3de42de66c3a",
+                author: "67083b7d6b71b17be2d3655d",
                 location: `${cities[random60].city}, ${cities[random60].state}`,
                 title: `${sample(descriptors)} ${sample(places)}`,
                 description: generateRandomDescription(),
