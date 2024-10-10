@@ -27,7 +27,6 @@ mongoose
         useNewUrlParser: true,
         useUnifiedTopology: true,
         serverSelectionTimeoutMS: 10000,
-        poolSize: 10, // Adjust based on your needs
     })
     .then(() => {
         console.log(`Connected to database: ${mongoose.connection.name}`);
