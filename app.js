@@ -261,4 +261,8 @@ app.use((req, res, next) => {
     next();
 });
 
+app.get("/favicon.ico", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "images", "favicon.png"));
+});
+
 module.exports = app;
