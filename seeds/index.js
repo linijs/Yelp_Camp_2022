@@ -23,7 +23,12 @@ const options = {
 
 mongoose.set("strictQuery", false);
 mongoose
-    .connect(dbUrl)
+    .connect(dbUrl, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        serverSelectionTimeoutMS: 10000,
+        poolSize: 10, // Adjust based on your needs
+    })
     .then(() => {
         console.log(`Connected to database: ${mongoose.connection.name}`);
         return seedDB(); // Call seedDB() after successful connection
