@@ -8,7 +8,7 @@ const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const ejsMate = require("ejs-mate");
-const session = require("express-session");
+const cookieSession = require("cookie-session");
 const flash = require("connect-flash");
 const ExpressError = require("./utils/ExpressError");
 const methodOverride = require("method-override");
@@ -51,34 +51,29 @@ app.set("views", path.join(__dirname, "views"));
 
 // Move session configuration here, before other middleware
 const sessionConfig = {
-    secret: process.env.SECRET || "thisshouldbeabettersecret!",
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        httpOnly: true,
-        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
-        maxAge: 1000 * 60 * 60 * 24 * 7,
-    },
+    name: "session",
+    keys: [process.env.SECRET || "thisshouldbeabettersecret!"],
+    maxAge: 24 * 60 * 60 * 1000, // 24 hours
 };
 
-app.use(session(sessionConfig));
+app.use(cookieSession(sessionConfig));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 
-const store = MongoStore.create({
-    mongoUrl: dbUrl,
-    // secret: process.env.SECRET || "thisshouldbeabettersecret!",
-    touchAfter: 24 * 60 * 60,
-    crypto: {
-        secret: process.env.SECRET || "thisshouldbeabettersecret!",
-    },
-});
+// const store = MongoStore.create({
+//     mongoUrl: dbUrl,
+//     // secret: process.env.SECRET || "thisshouldbeabettersecret!",
+//     touchAfter: 24 * 60 * 60,
+//     crypto: {
+//         secret: process.env.SECRET || "thisshouldbeabettersecret!",
+//     },
+// });
 
-store.on("error", function (e) {
-    console.log("SESSION STORE ERROR", e);
-});
+// store.on("error", function (e) {
+//     console.log("SESSION STORE ERROR", e);
+// });
 
 app.use(flash());
 
