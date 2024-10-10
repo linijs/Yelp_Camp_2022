@@ -22,13 +22,12 @@
                     <div
                         class="lazy-image-placeholder"
                         style="
-                            background-image: url('<%= campground.images && campground.images.length ? campground.images[0].url : 'https://res.cloudinary.com/drvf1bwps/image/upload/v1728254214/Terrainly/mareks-steins-hZzzuMHYqmg-unsplash_avdsmd.webp' %>');
+                            background-image: url('<%= campground.images && campground.images.length ? campground.images[0].url : 'https://res.cloudinary.com/drvf1bwps/image/upload/v1728254214/Terrainly/mareks-steins-hZzzuMHYqmg-unsplash_avdsmd.webp' %>'
                         "
                     ></div>
                     <img
-                        src="data:image/webp;base64,UklGRiIAAABXRUJQVlA4IBYAAAAwAQCdASoBAAEADsD+JaQAA3AAAAAA"
-                        data-src="<%= campground.images && campground.images.length ? campground.images[0].url.replace(/\.(jpg|jpeg|png)$/, '.webp') : 'https://res.cloudinary.com/drvf1bwps/image/upload/v1728254214/Terrainly/mareks-steins-hZzzuMHYqmg-unsplash_avdsmd.webp' %>"
-                        class="card-img-top lazy-image loading"
+                        data-src="<%= campground.images && campground.images.length ? campground.images[0].url.replace(/upload\//, 'upload/c_scale,w_500,q_auto,f_auto/') : 'https://res.cloudinary.com/drvf1bwps/image/upload/c_scale,w_300,q_auto,f_auto/v1728254214/Terrainly/mareks-steins-hZzzuMHYqmg-unsplash_avdsmd.webp' %>"
+                        class="card-img-top lazy-image"
                         alt="<%= campground.title %>"
                         crossorigin="anonymous"
                     />
@@ -104,7 +103,6 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        initializeLazyLoading();
         const allParksSection = document.getElementById("all-parks-section");
         const paginationLinks =
             allParksSection.querySelectorAll(".pagination a");
@@ -127,10 +125,8 @@
                     if (newContent) {
                         allParksSection.innerHTML = newContent.innerHTML;
                         history.pushState(null, "", `/?page=${page}`);
-                        // Re-attach event listeners to new pagination links
                         attachPaginationListeners();
-                        // Reinitialize lazy loading
-                        initializeLazyLoading();
+                        window.initializeNewImages(); // Use the exposed function
                     }
                 })
                 .catch((error) => console.error("Error:", error));
@@ -146,46 +142,6 @@
                     fetchCampgrounds(page);
                 });
             });
-        }
-
-        function initializeLazyLoading() {
-            let lazyImages = [].slice.call(
-                document.querySelectorAll("img.lazy-image")
-            );
-            if ("IntersectionObserver" in window) {
-                let lazyImageObserver = new IntersectionObserver(function (
-                    entries,
-                    observer
-                ) {
-                    entries.forEach(function (entry) {
-                        if (entry.isIntersecting) {
-                            let lazyImage = entry.target;
-                            lazyImage.src = lazyImage.dataset.src;
-                            lazyImage.classList.remove("lazy-image");
-                            lazyImage.classList.add("loaded");
-                            lazyImageObserver.unobserve(lazyImage);
-
-                            // Remove the placeholder
-                            let placeholder = lazyImage.previousElementSibling;
-                            if (
-                                placeholder &&
-                                placeholder.classList.contains(
-                                    "lazy-image-placeholder"
-                                )
-                            ) {
-                                placeholder.style.opacity = "0";
-                                setTimeout(() => {
-                                    placeholder.remove();
-                                }, 500);
-                            }
-                        }
-                    });
-                });
-
-                lazyImages.forEach(function (lazyImage) {
-                    lazyImageObserver.observe(lazyImage);
-                });
-            }
         }
     });
 </script>

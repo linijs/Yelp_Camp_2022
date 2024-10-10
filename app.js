@@ -235,14 +235,17 @@ app.get("/", async (req, res) => {
     }
 });
 
-app.all("*", (req, res, next) => {
-    next(new ExpressError("Page Not Found", 404));
+// 404 handler
+app.use((req, res, next) => {
+    const err = new Error("Not Found");
+    err.status = 404;
+    next(err);
 });
 
+// Error handler
 app.use((err, req, res, next) => {
-    console.error(err);
     const { statusCode = 500 } = err;
-    if (!err.message) err.message = "Oh no, something went wrong!";
+    if (!err.message) err.message = "Oh No, Something Went Wrong!";
     res.status(statusCode).render("error", { err });
 });
 
