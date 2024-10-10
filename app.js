@@ -49,7 +49,6 @@ app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-// Move session configuration here, before other middleware
 const sessionConfig = {
     name: "session",
     keys: [process.env.SECRET || "thisshouldbeabettersecret!"],
@@ -57,6 +56,21 @@ const sessionConfig = {
 };
 
 app.use(cookieSession(sessionConfig));
+
+// Add this middleware to handle session regeneration
+app.use((req, res, next) => {
+    if (!req.session.regenerate) {
+        req.session.regenerate = (cb) => {
+            cb();
+        };
+    }
+    if (!req.session.save) {
+        req.session.save = (cb) => {
+            cb();
+        };
+    }
+    next();
+});
 
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
