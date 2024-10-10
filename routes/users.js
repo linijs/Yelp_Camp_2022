@@ -16,7 +16,7 @@ router
                 const registeredUser = await User.register(user, password);
                 req.login(registeredUser, (err) => {
                     if (err) return next(err);
-                    req.flash("success", "Welcome to YelpCamp!");
+                    req.flash("success", "Welcome to Terrainly!");
                     res.redirect("/");
                 });
             } catch (e) {

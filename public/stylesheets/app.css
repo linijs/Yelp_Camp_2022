@@ -458,7 +458,7 @@ main,
 }
 
 .login-image {
-    background-image: url("https://res.cloudinary.com/drvf1bwps/image/upload/v1728254178/YelpCamp/krisjanis-kazaks-PxYUXDHA1u4-unsplash_i7ojgs.webp");
+    background-image: url("/images/login_img.webp");
     background-size: cover;
     background-position: center;
     min-height: 600px;

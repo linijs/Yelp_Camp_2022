@@ -1,8 +1,10 @@
+require("dotenv").config();
+const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/yelp-camp";
+
 const mongoose = require("mongoose");
 const cities = require("./cities");
 const { places, descriptors } = require("./seedHelpers");
 const Campground = require("../models/campground");
-const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/yelp-camp";
 
 require("dotenv").config();
 const cloudinary = require("cloudinary").v2;
@@ -14,7 +16,8 @@ cloudinary.config({
 });
 
 const options = {
-    resource_type: "image",
+    type: "upload",
+    prefix: "Terrainly/Parks/",
     max_results: 500,
 };
 
@@ -103,7 +106,7 @@ const generateRandomDescription = () => {
     const description = `
         ${sample(intros)} ${sample(
         locations
-    )}, our campground offers a truly unique outdoor experience. 
+    )}, this campground offers a truly unique outdoor experience. 
         ${
             sample(features).charAt(0).toUpperCase() + sample(features).slice(1)
         } and ${sample(features)} create a stunning backdrop for your stay. 
@@ -115,7 +118,7 @@ const generateRandomDescription = () => {
                   )}. `
                 : ""
         }
-        Our campground features ${sample(amenities)} and ${sample(amenities)}${
+        This campground features ${sample(amenities)} and ${sample(amenities)}${
         randomNumber(2) === 1 ? `, as well as ${sample(amenities)}` : ""
     }. 
         ${
@@ -141,11 +144,10 @@ const seedDB = async () => {
         const images = [];
         const result = await cloudinary.api.resources(options);
         result.resources.forEach((asset) => {
-            if (asset.folder === "YelpCamp")
-                images.push({
-                    url: asset.secure_url,
-                    filename: asset.public_id,
-                });
+            images.push({
+                url: asset.secure_url,
+                filename: asset.public_id,
+            });
         });
         console.log(`Fetched ${images.length} images from Cloudinary`);
 

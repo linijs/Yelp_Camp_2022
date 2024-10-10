@@ -1,5 +1,5 @@
 {
-    "name": "yelpcamp",
+    "name": "terrainly",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
@@ -37,6 +37,7 @@
         "passport-local": "^1.0.0",
         "passport-local-mongoose": "^8.0.0",
         "sanitize-html": "^2.13.1",
+        "terrainly": "file:",
         "uid2": "^1.0.0",
         "yelpcamp": "file:"
     }

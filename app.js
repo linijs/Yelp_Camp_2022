@@ -27,15 +27,17 @@ mongoose.set("strictQuery", false);
 
 const MongoStore = require("connect-mongo");
 
-const dbUrl = process.env.DB_URL || "mongodb://127.0.0.1:27017/yelp-camp";
+const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/yelp-camp";
 
 mongoose
     .connect(dbUrl)
     .then(() => {
-        console.log("Database connected");
+        console.log(`Connected to database: ${mongoose.connection.name}`);
+        console.log(`Database host: ${mongoose.connection.host}`);
     })
     .catch((e) => {
-        console.log("Database connection error:", e);
+        console.log("Database connection error:", e.message);
+        console.error("Connection error:", e);
     });
 
 const app = express();
@@ -82,6 +84,40 @@ app.use(
 
 app.use(helmet());
 
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            defaultSrc: ["'self'"],
+            connectSrc: [
+                "'self'",
+                "https://*.mapbox.com",
+                "https://*.cloudinary.com",
+            ],
+            scriptSrc: [
+                "'self'",
+                "'unsafe-inline'",
+                "https://*.cloudinary.com",
+                "https://*.mapbox.com",
+            ],
+            workerSrc: ["'self'", "blob:"],
+            childSrc: ["blob:"],
+            imgSrc: [
+                "'self'",
+                "data:",
+                "blob:",
+                "https://*.cloudinary.com",
+                "https://*.mapbox.com",
+            ],
+            fontSrc: ["'self'", "https://fonts.gstatic.com"],
+            styleSrc: [
+                "'self'",
+                "'unsafe-inline'",
+                "https://fonts.googleapis.com",
+            ],
+        },
+    })
+);
+
 const scriptSrcUrls = [
     "https://stackpath.bootstrapcdn.com/",
     "https://api.tiles.mapbox.com/",
@@ -90,6 +126,7 @@ const scriptSrcUrls = [
     "https://cdnjs.cloudflare.com/",
     "https://cdn.jsdelivr.net/",
     "https://res.cloudinary.com/drvf1bwps/",
+    "https://events.mapbox.com/",
 ];
 
 const connectSrcUrls = [
@@ -203,6 +240,7 @@ app.all("*", (req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
+    console.error(err);
     const { statusCode = 500 } = err;
     if (!err.message) err.message = "Oh no, something went wrong!";
     res.status(statusCode).render("error", { err });
@@ -214,3 +252,10 @@ app.listen(port, () => {
 });
 
 app.get("/public/images/favicon.png", (req, res) => res.status(204));
+
+app.use((req, res, next) => {
+    res.removeHeader("Cross-Origin-Embedder-Policy");
+    next();
+});
+
+module.exports = app;
