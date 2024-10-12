@@ -1,3 +1,4 @@
+/* ========== Base Styles ========== */
 /* Import fonts */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 
@@ -40,7 +41,7 @@ html {
     padding: 0;
 }
 
-/* Layout styles */
+/* ========== Layout Styles ========== */
 .container-custom {
     width: 90%;
     max-width: 1700px;
@@ -57,6 +58,7 @@ html {
     margin-bottom: 2rem;
 }
 
+/* ========== Component Styles ========== */
 /* Button styles */
 .btn {
     padding: var(--padding-button);
@@ -413,12 +415,7 @@ main,
 .navbar {
     transition: none;
     padding: 1rem 6.5rem;
-    /* background-color: transparent; */
 }
-
-/*.navbar-scrolled {
-    background-color: rgba(255, 255, 255, 0.95) !important;
-} */
 
 .navbar-scrolled {
     background-color: white !important;
@@ -551,7 +548,52 @@ main,
     margin: 20px 0;
 }
 
-/* Responsive styles */
+/* ========== Utility Classes ========== */
+.btn-danger {
+    width: 100%;
+}
+
+.two-line-heading {
+    max-width: 600px;
+    white-space: normal;
+}
+
+.flex-row-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+.flex-row-cards > .col-md-4 {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.flex-row-cards .card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-row-cards .card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ========== Animations ========== */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* ========== Media Queries ========== */
 @media (max-width: 768px) {
     .container-custom {
         width: 100%;
@@ -645,14 +687,25 @@ main,
         text-align: center;
     }
 }
+
+@media (max-width: 767px) {
+    .flex-row-cards {
+        justify-content: center;
+    }
+
+    .flex-row-cards > .col-md-4 {
+        width: 100%;
+        max-width: 600px;
+    }
+}
+
+/* ========== Overrides ========== */
 .card:hover {
     transform: none !important;
     box-shadow: none !important;
 }
 
-.btn-danger {
-    width: 100%;
-}
+/* ========== Loading Indicator ========== */
 #loading-indicator {
     position: fixed;
     top: 0;
@@ -673,17 +726,4 @@ main,
     border-top: 5px solid #3498db;
     border-radius: 50%;
     animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-.two-line-heading {
-    max-width: 600px;
-    white-space: normal;
 }
