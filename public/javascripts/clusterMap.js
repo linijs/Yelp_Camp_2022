@@ -159,8 +159,13 @@ function initMap() {
             document.getElementById("cluster-map").style.opacity = "1";
         });
 
-        // Add your existing map event listeners and other logic here
-        // ...
+        // Check if Mapbox events are blocked
+        setTimeout(() => {
+            if (!map.loaded()) {
+                console.warn("Mapbox events might be blocked");
+                showMapWarning();
+            }
+        }, 5000); // Wait for 5 seconds before showing the warning
     } catch (error) {
         console.error("Error initializing map:", error);
         showMapError();
@@ -170,6 +175,10 @@ function initMap() {
 function showMapError() {
     document.getElementById("cluster-map").style.display = "none";
     document.getElementById("map-error").classList.remove("d-none");
+}
+
+function showMapWarning() {
+    document.getElementById("map-warning").classList.remove("d-none");
 }
 
 // Call initMap when the DOM is fully loaded

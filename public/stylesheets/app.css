@@ -683,3 +683,7 @@ main,
         transform: rotate(360deg);
     }
 }
+.two-line-heading {
+    max-width: 600px;
+    white-space: normal;
+}
