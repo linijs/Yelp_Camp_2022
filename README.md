@@ -1,6 +1,6 @@
 # Terrainly
 
-**Terrainly** is a **full-stack web application** that allows users to **discover**, **create**, and **review camping sites** around Latvia. This application leverages **Node.js**, **Express**, and **MongoDB** to deliver a **robust** and **interactive user experience** with features like **user authentication**, **campground management**, and a **review system**.
+**Terrainly** is a **full-stack web application** that allows users to **discover**, **create**, and **review parks** around Latvia. This application leverages **Node.js**, **Express**, and **MongoDB** to deliver a **robust** and **interactive user experience** with features like **user authentication**, **park management**, and a **review system**. This platform is designed to connect nature enthusiasts and provide a comprehensive resource for outdoor adventures in Latvia's beautiful landscapes.
 
 ## Features
 
@@ -17,10 +17,13 @@
     -   Node.js
     -   Express
     -   MongoDB (with Mongoose)
+    -   Helmet
 -   **Frontend**:
     -   EJS (Embedded JavaScript)
     -   Bootstrap 5
     -   CSS
+    -   GSAP
+    -   Mapbox GL JS 
 -   **Authentication**:
     -   Passport.js
 -   **File Uploads**:
