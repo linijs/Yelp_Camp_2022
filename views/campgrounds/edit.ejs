@@ -1,8 +1,8 @@
-<% layout('layouts/boilerplate')%> <% hideFooter = true %>
+<% layout('layouts/boilerplate')%>
 <div
-    class="container-fluid vh-100 d-flex justify-content-center align-items-center"
+    class="container-fluid d-flex justify-content-center align-items-center mt-5"
 >
-    <div class="row justify-content-center w-100">
+    <div class="container-edit row justify-content-center w-100">
         <div class="col-12 col-sm-10 col-md-8 col-lg-6">
             <div class="login-form">
                 <div class="form-header mb-4">
@@ -100,6 +100,7 @@
                                         src="<%=img.thumbnail %>"
                                         class="card-img-top"
                                         alt="Park image"
+                                        crossorigin="anonymous"
                                     />
                                     <div class="card-body">
                                         <div class="form-check">
@@ -154,8 +155,8 @@
 </div>
 
 <style>
-    body {
-        overflow-y: auto;
+    .container-edit {
+        margin-top: 5rem;
     }
 
     .login-form {
